@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.main{
+  display: flex;
+  flex-direction: row;
+}
+
+.burger-ingredient{
+  display: flex;
+  height: 1000px;
+  overflow: scroll;
+}
