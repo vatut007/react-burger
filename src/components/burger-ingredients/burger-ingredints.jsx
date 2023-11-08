@@ -9,6 +9,9 @@ export function BurgerIngredients (props){
     const data_ingredients_bun = props.data.filter(function (obj) {
         return obj.type == 'bun'
     })
+    const data_ingredients_sauce = props.data.filter(function (obj) {
+        return obj.type == 'sauce'
+    })
     return(
         <section>
             <p className="text text_type_main-medium">Соберите бургер</p>
@@ -28,6 +31,19 @@ export function BurgerIngredients (props){
             </div>
             <div className={styles.bun}>  
             {data_ingredients_bun.map((ingredient)=>(
+                <div key={ingredient.id}>
+                    <CardIngredient 
+                    name={ingredient.name}
+                    image ={ingredient.image}
+                    price ={ingredient.price}/>
+                </div>
+                ))}
+            </div>
+            <div className={styles.text}>
+                <p className="text text_type_main-medium">Соусы</p>
+            </div>
+            <div className={styles.bun}>  
+            {data_ingredients_sauce.map((ingredient)=>(
                 <div key={ingredient.id}>
                     <CardIngredient 
                     name={ingredient.name}
