@@ -8,6 +8,6 @@
   height: 300px;
 
   &:hover {
-  background-color: aqua;
+    background-color: aqua;
   }
 }

@@ -1,15 +1,22 @@
-.currentOrder {
+.bun {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  width: 600px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 700px;
 }
-
-.burgerconstructor {
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.ingredients {
   display: flex;
   overflow-y: auto;
   flex-direction: column;
-  gap: 10px;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -23,15 +30,7 @@
     background-color: rgb(133, 133, 173);
   }
 }
-.order {
+.burgerIngredients {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-}
-.constructorElement {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-height: 100%;
-  overflow: hidden;
 }

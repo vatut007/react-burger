@@ -32,8 +32,8 @@ export function BurgerConstructor(props) {
   }
 
   return (
-    <section>
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+    <div className={styles.order}>
+      <div className={styles.constructorElement}>
         <ConstructorElement
           type="top"
           isLocked={true}
@@ -42,18 +42,18 @@ export function BurgerConstructor(props) {
           thumbnail={props.selectedBun.image}
         />
         <div className={styles.burgerconstructor}>
-        {props.selectedIngredients.map((ingedient, index) => (
-          <div>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              isLocked={false}
-              text={ingedient.name}
-              price={ingedient.price}
-              thumbnail={ingedient.image}
-              handleClose={() => props.deleteIngedient(index)}
-            />
-          </div>
-        ))}
+          {props.selectedIngredients.map((ingedient, index) => (
+            <div>
+              <DragIcon type="primary" />
+              <ConstructorElement
+                isLocked={false}
+                text={ingedient.name}
+                price={ingedient.price}
+                thumbnail={ingedient.image}
+                handleClose={() => props.deleteIngedient(index)}
+              />
+            </div>
+          ))}
         </div>
         <ConstructorElement
           type="bottom"
@@ -70,6 +70,6 @@ export function BurgerConstructor(props) {
           Оформить заказ
         </Button>
       </div>
-    </section>
+    </div>
   );
 }
