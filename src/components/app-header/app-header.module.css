@@ -1,11 +1,11 @@
-.header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 50px;
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
 }
 
 .icon {
-    vertical-align: -5px;
+  vertical-align: -5px;
 }

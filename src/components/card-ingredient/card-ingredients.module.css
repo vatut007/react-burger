@@ -1,9 +1,13 @@
-.text{
-    white-space: normal;
+.text {
+  white-space: normal;
 }
-.div{
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    height: 300px;
+.div {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+
+  &:hover {
+  background-color: aqua;
+  }
 }
