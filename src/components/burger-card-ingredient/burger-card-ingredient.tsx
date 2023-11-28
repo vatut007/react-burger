@@ -5,11 +5,15 @@ import {
 } from "../burger-type-tab/burger-type-tab";
 import { CardIngredient } from "../card-ingredient/card-ingredient";
 import { type Ingredient } from "../../App";
+import { type MutableRefObject } from "react";
 
 interface BurgerCardIngredientProps {
   type: IngredientType;
   allIngredients: Ingredient[];
   addIngedient(Ingredient: Ingredient): void;
+  selectIngredient: MutableRefObject<
+    Record<IngredientType, HTMLDivElement | null>
+  >;
 }
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
@@ -19,7 +23,12 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
 
   return (
     <>
-      <div className={styles.text}>
+      <div
+        className={styles.text}
+        ref={(element) =>
+          (props.selectIngredient.current[props.type] = element)
+        }
+      >
         <p className="text text_type_main-medium">
           {ingredientNames[props.type]}
         </p>
