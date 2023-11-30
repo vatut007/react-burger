@@ -1,11 +1,5 @@
 import { useRef, useState } from "react";
-import {
-  Counter,
-  Tab,
-  Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredients.module.css";
-import { CardIngredient } from "../card-ingredient/card-ingredient";
 import { BurgerTypeTabs, types } from "../burger-type-tabs/burger-type-tabs";
 import { BurgerCardIngredient } from "../burger-card-ingredient/burger-card-ingredient";
 
@@ -39,6 +33,7 @@ export function BurgerIngredients(props) {
             allIngredients={props.data}
             addIngedient={props.addIngedient}
             selectIngredient={selectIngredient}
+            key = {type}
           />
         ))}
       </div>

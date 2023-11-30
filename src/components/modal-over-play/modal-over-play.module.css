@@ -1,0 +1,19 @@
+.modal {
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+  border-radius: 8px;
+  background-color: rgba(0,0,0, .6);
+}
+.text{
+  color: white;
+}
+.close_icon{
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 10;
+  background: None;
+  border: None;
+  outline: None;
+}

@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useRef} from "react";
 import {
-  Counter,
   DragIcon,
   CurrencyIcon,
   Button,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
+import { Modal } from "../modal/modal";
 
 export function BurgerConstructor(props) {
+  const dialogRef = useRef(null)
   if (props.selectedBun == null) {
     return (
       <div>
@@ -18,19 +19,13 @@ export function BurgerConstructor(props) {
         <div className={styles.currentOrder}>
           <p className="text text_type_digits-default">0</p>
           <CurrencyIcon type="primary" />
-          <Button
-            htmlType="button"
-            type="primary"
-            size="small"
-            extraClass="ml-2"
-          >
-            Оформить заказ
-          </Button>
         </div>
       </div>
     );
   }
-
+  const summIngredients = props.selectedIngredients.reduce((sum, current) => sum + current.price, 0)
+  const summBun = props.selectedBun.price*2
+  const summ = summIngredients + summBun
   return (
     <div className={styles.order}>
       <div className={styles.constructorElement}>
@@ -43,7 +38,7 @@ export function BurgerConstructor(props) {
         />
         <div className={styles.burgerconstructor}>
           {props.selectedIngredients.map((ingedient, index) => (
-            <div>
+            <div key={String(ingedient._id)+ '_'+ String(index)}>
               <DragIcon type="primary" />
               <ConstructorElement
                 isLocked={false}
@@ -64,11 +59,13 @@ export function BurgerConstructor(props) {
         />
       </div>
       <div className={styles.currentOrder}>
-        <p className="text text_type_digits-default">1234567890</p>
+        <p className="text text_type_digits-default">{summ}</p>
         <CurrencyIcon type="primary" />
-        <Button htmlType="button" type="primary" size="small" extraClass="ml-2">
-          Оформить заказ
+        <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={()=>{
+          dialogRef.current.showModal()}}>
+            Оформить заказ
         </Button>
+        <Modal dialogRef={dialogRef}/>
       </div>
     </div>
   );

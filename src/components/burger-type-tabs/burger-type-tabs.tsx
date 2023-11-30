@@ -15,7 +15,7 @@ export function BurgerTypeTabs(props: BurgerTypeTabsProps) {
   return (
     <div className={styles.tab}>
       {types.map((type) => (
-        <BurgerTypeTab {...props} type={type} />
+        <BurgerTypeTab {...props} type={type} key = {type}/>
       ))}
     </div>
   );
