@@ -28,10 +28,14 @@ function App() {
   const [allIngredients, setAllIngredient] = useState([])
   useEffect(()=>{ 
     const getData = async () => {
-      const res = await fetch (getIngredients);
-      const data = await res.json();
-      setAllIngredient(data.data)};
-      getData();
+      try{
+        const res = await fetch (getIngredients);
+        const data = await res.json();
+        setAllIngredient(data.data);
+      } catch(err){
+        console.log('Не удалось выполнить запрос')
+      }};
+        getData();
     }, []);
   return (
     <div className="App">
