@@ -9,12 +9,13 @@ export function Modal(props) {
     return(
     <>        
         <ModalOverPlay dialogRef={props.dialogRef}>
-            <h2 className={styles.text + " text text_type_main-default"}>
+            <h2 className={styles.text + " text text_type_main-medium"}>
                 {props.title}
             </h2>
             <button className={styles.close_icon} onClick={handleCloseClick}>
             <CloseIcon type="primary" />
             </button>
+            {props.children}
         </ModalOverPlay>
     </>
     )

@@ -5,7 +5,8 @@ import {
 } from "../burger-type-tab/burger-type-tab";
 import { CardIngredient } from "../card-ingredient/card-ingredient";
 import { type Ingredient } from "../../App";
-import { type MutableRefObject } from "react";
+import { useRef, type MutableRefObject } from "react";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 
 interface BurgerCardIngredientProps {
   type: IngredientType;
@@ -14,13 +15,14 @@ interface BurgerCardIngredientProps {
   selectIngredient: MutableRefObject<
     Record<IngredientType, HTMLDivElement | null>
   >;
+  openModal(): void;
+  setModalIngredient(Ingredient: Ingredient): void;
 }
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
   const filteredIngredients = props.allIngredients.filter(
     (ingredient) => ingredient.type == props.type,
   );
-
   return (
     <>
       <div
@@ -42,6 +44,8 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
             image={ingredient.image}
             price={ingredient.price}
             addIngedient={props.addIngedient}
+            openModal = {props.openModal}
+            setModal = {props.setModalIngredient}
           />
         ))}
       </div>

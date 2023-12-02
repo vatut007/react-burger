@@ -1,5 +1,6 @@
 .text {
   white-space: normal;
+  color: white;
 }
 .div {
   display: flex;

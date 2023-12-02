@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import styles from "./burger-ingredients.module.css";
 import { BurgerTypeTabs, types } from "../burger-type-tabs/burger-type-tabs";
 import { BurgerCardIngredient } from "../burger-card-ingredient/burger-card-ingredient";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 
 export function BurgerIngredients(props) {
   const selectIngredient = useRef({});
@@ -10,6 +11,7 @@ export function BurgerIngredients(props) {
   };
 
   const [current, setCurrent] = useState(types[0]);
+  const [modalIngredient, setModalIngredient] = useState({})
   const handleScroll = (event) => {
     for (let i = 0; i < types.length-1; i++) {
       const { scrollTop } = event.target;
@@ -21,7 +23,8 @@ export function BurgerIngredients(props) {
     }
     setCurrent(types.at(-1))
   };
-
+  const dialogRef = useRef(null)
+  const openModal =()=>{dialogRef.current.showModal()}
   return (
     <div className={styles.burgerIngredients}>
       <p className="text text_type_main-medium">Соберите бургер</p>
@@ -34,9 +37,13 @@ export function BurgerIngredients(props) {
             addIngedient={props.addIngedient}
             selectIngredient={selectIngredient}
             key = {type}
+            openModal = {openModal}
+            setModalIngredient={setModalIngredient}
           />
         ))}
       </div>
+      <IngredientDetails dialogRef={dialogRef} 
+      ingredient={modalIngredient}/>
     </div>
   );
 }

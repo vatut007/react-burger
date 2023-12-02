@@ -1,8 +1,6 @@
 .modal {
-    display: flex;
     justify-content: center;
-    width: 400px;
-    height: 400px;
+    flex-direction: column;
     border-radius: 8px;
     background-color: rgba(0,0,0, .6);
   }
@@ -13,7 +11,7 @@
     display: block;
     position: absolute;
     right: 0;
-    top: 10;
+    top: 0;
     background: None;
     border: None;
     outline: None;
