@@ -3,7 +3,8 @@ import { AppHeader } from "./components/app-header/app-header";
 import { BurgerIngredients } from "./components/burger-ingredients/burger-ingredients";
 import { data } from "./utils/data.js";
 import { BurgerConstructor } from "./components/burger-constructor/burger-constructor";
-import { useState } from "react";
+import { useEffect, useState} from "react";
+import { getIngredients } from "./contants";
 
 export type Ingredient = (typeof data)[number];
 
@@ -24,11 +25,19 @@ function App() {
       selectedIngredients.filter((ingredient, index) => index !== deleteIndex),
     );
   };
+  const [allIngredients, setAllIngredient] = useState([])
+  useEffect(()=>{ 
+    const getData = async () => {
+      const res = await fetch (getIngredients);
+      const data = await res.json();
+      setAllIngredient(data.data)};
+      getData();
+    }, []);
   return (
     <div className="App">
       <AppHeader />
       <section className="main">
-        <BurgerIngredients data={data} addIngedient={addIngedient} />
+        <BurgerIngredients data={allIngredients} addIngedient={addIngedient} />
         <BurgerConstructor
           selectedIngredients={selectedIngredients}
           selectedBun={selectedBun}

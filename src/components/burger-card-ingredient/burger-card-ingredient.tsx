@@ -5,8 +5,7 @@ import {
 } from "../burger-type-tab/burger-type-tab";
 import { CardIngredient } from "../card-ingredient/card-ingredient";
 import { type Ingredient } from "../../App";
-import { useRef, type MutableRefObject } from "react";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { type MutableRefObject } from "react";
 
 interface BurgerCardIngredientProps {
   type: IngredientType;
@@ -21,7 +20,7 @@ interface BurgerCardIngredientProps {
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
   const filteredIngredients = props.allIngredients.filter(
-    (ingredient) => ingredient.type == props.type,
+    (ingredient) => ingredient.type === props.type,
   );
   return (
     <>
