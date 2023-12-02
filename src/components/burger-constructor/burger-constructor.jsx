@@ -6,7 +6,7 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import { Modal } from "../modal/modal";
+import { OrderDetail } from "../order-details/order-details";
 
 export function BurgerConstructor(props) {
   const dialogRef = useRef(null)
@@ -65,7 +65,7 @@ export function BurgerConstructor(props) {
           dialogRef.current.showModal()}}>
             Оформить заказ
         </Button>
-        <Modal dialogRef={dialogRef}/>
+        <OrderDetail dialogRef={dialogRef}/>
       </div>
     </div>
   );
