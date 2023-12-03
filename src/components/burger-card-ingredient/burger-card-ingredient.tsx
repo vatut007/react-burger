@@ -1,21 +1,19 @@
 import styles from "./burger-card-ingredient.module.css";
-import {
-  type IngredientType,
-  ingredientNames,
-} from "../burger-type-tab/burger-type-tab";
+import { ingredientNames } from "../burger-type-tab/burger-type-tab";
 import { CardIngredient } from "../card-ingredient/card-ingredient";
-import { type Ingredient } from "../../App";
+import { type Ingredient } from "../../types/ingredient";
 import { type MutableRefObject } from "react";
+import { type IngredientType } from "../../types/ingredient";
 
 interface BurgerCardIngredientProps {
   type: IngredientType;
   allIngredients: Ingredient[];
   addIngedient(Ingredient: Ingredient): void;
   selectIngredient: MutableRefObject<
-    Record<IngredientType, HTMLDivElement | null>
+    Partial<Record<IngredientType, HTMLDivElement | null>>
   >;
   openModal(): void;
-  setModalIngredient(Ingredient: Ingredient): void;
+  setModalIngredient(ingredient: Ingredient): void;
 }
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
@@ -43,8 +41,8 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
             image={ingredient.image}
             price={ingredient.price}
             addIngedient={props.addIngedient}
-            openModal = {props.openModal}
-            setModal = {props.setModalIngredient}
+            openModal={props.openModal}
+            setModal={props.setModalIngredient}
           />
         ))}
       </div>

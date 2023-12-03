@@ -1,12 +1,12 @@
 import "./App.css";
 import { AppHeader } from "./components/app-header/app-header";
 import { BurgerIngredients } from "./components/burger-ingredients/burger-ingredients";
-import { data } from "./utils/data.js";
 import { BurgerConstructor } from "./components/burger-constructor/burger-constructor";
-import { useEffect, useState} from "react";
-import { getIngredients } from "./contants";
-
-export type Ingredient = (typeof data)[number];
+import { useState } from "react";
+import { useAllIngredientsApi } from "./utils/burger-api";
+import { type Ingredient } from "./types/ingredient";
+import { Loading } from "./components/loading/loadng";
+import { Error } from "./components/error/error";
 
 function App() {
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>(
@@ -25,23 +25,18 @@ function App() {
       selectedIngredients.filter((ingredient, index) => index !== deleteIndex),
     );
   };
-  const [allIngredients, setAllIngredient] = useState([])
-  useEffect(()=>{ 
-    const getData = async () => {
-      try{
-        const res = await fetch (getIngredients);
-        const data = await res.json();
-        setAllIngredient(data.data);
-      } catch(err){
-        console.log('Не удалось выполнить запрос')
-      }};
-        getData();
-    }, []);
+  const [pending, data, error] = useAllIngredientsApi();
+  if (pending) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error error={String(error)} />;
+  }
   return (
     <div className="App">
       <AppHeader />
       <section className="main">
-        <BurgerIngredients data={allIngredients} addIngedient={addIngedient} />
+        <BurgerIngredients data={data} addIngedient={addIngedient} />
         <BurgerConstructor
           selectedIngredients={selectedIngredients}
           selectedBun={selectedBun}

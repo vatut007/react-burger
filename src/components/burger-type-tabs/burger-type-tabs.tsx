@@ -1,10 +1,7 @@
-import {
-  type IngredientType,
-  BurgerTypeTab,
-} from "../burger-type-tab/burger-type-tab";
+import { BurgerTypeTab } from "../burger-type-tab/burger-type-tab";
 import styles from "./burger-type-tabs.module.css";
-
-export const types: IngredientType[] = ["bun", "sauce", "main"];
+import { type IngredientType } from "../../types/ingredient";
+import { types } from "../../types/ingredient";
 
 interface BurgerTypeTabsProps {
   current: IngredientType;
@@ -15,7 +12,7 @@ export function BurgerTypeTabs(props: BurgerTypeTabsProps) {
   return (
     <div className={styles.tab}>
       {types.map((type) => (
-        <BurgerTypeTab {...props} type={type} key = {type}/>
+        <BurgerTypeTab {...props} type={type} key={type} />
       ))}
     </div>
   );

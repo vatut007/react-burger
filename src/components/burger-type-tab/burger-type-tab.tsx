@@ -1,6 +1,5 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-
-export type IngredientType = "main" | "sauce" | "bun";
+import { IngredientType } from "../../types/ingredient";
 
 export const ingredientNames: Record<IngredientType, string> = {
   bun: "Булки",

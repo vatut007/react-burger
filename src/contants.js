@@ -1,1 +1,0 @@
-export const getIngredients = 'https://norma.nomoreparties.space/api/ingredients'

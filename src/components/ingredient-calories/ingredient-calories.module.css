@@ -1,8 +1,8 @@
-.detail{
-    display: flex;
-    flex-direction: column;
+.detail {
+  display: flex;
+  flex-direction: column;
 }
-.text{
-    width: 100%;
-    text-wrap: nowrap;
+.text {
+  width: 100%;
+  text-wrap: nowrap;
 }
