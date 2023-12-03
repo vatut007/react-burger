@@ -6,7 +6,7 @@ import { Ingredient } from "../../types/ingredient";
 
 interface IngredientDetailsProps{
   dialogRef: RefObject<HTMLDialogElement>;
-  ingredient: Ingredient|undefined
+  ingredient: Ingredient
 }
 
 export function IngredientDetails(props:IngredientDetailsProps) {

@@ -59,7 +59,7 @@ export function BurgerIngredients(props: BurgerIngredientsProps) {
           />
         ))}
       </div>
-      <IngredientDetails dialogRef={dialogRef} ingredient={modalIngredient} />
+      { !!modalIngredient && <IngredientDetails dialogRef={dialogRef} ingredient={modalIngredient} />}
     </div>
   );
 }

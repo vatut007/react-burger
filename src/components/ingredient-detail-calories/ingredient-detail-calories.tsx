@@ -5,7 +5,7 @@ import styles from "./ingredient-detail-calories.module.css";
 export const detail  = ["calories", "proteins", "fat", "carbohydrates"] as const
 
 interface IngredientDetailCaloriesProps{
-  ingredient: Ingredient|undefined
+  ingredient: Ingredient
 }
 
 export function IngredientDetailCalories(props:IngredientDetailCaloriesProps) {
@@ -13,7 +13,7 @@ export function IngredientDetailCalories(props:IngredientDetailCaloriesProps) {
     <div className={styles.detail}>
       {detail.map((detail) => (
         <IngredientCalories
-          value={props.ingredient![detail]}
+          value={props.ingredient[detail]}
           detail={detail}
           key={detail}
         />
