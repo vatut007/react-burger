@@ -1,0 +1,19 @@
+.name {
+  white-space: normal;
+  color: white;
+  padding-bottom: 32px;
+  padding-top: 30px;
+}
+.order {
+  color: white;
+}
+.checkMarkIcon {
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.modalContent {
+  display: flex;
+  flex-direction: column;
+}

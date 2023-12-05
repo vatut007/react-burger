@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  width: 100%;
+  height: 100%;
+  max-width: 1000px;
+  max-height: 100px;
+  margin: auto;
+}
+
+.icon {
+  vertical-align: -5px;
+}

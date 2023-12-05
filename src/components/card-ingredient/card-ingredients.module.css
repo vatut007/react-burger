@@ -1,0 +1,14 @@
+.text {
+  white-space: normal;
+  color: white;
+}
+.div {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+
+  &:hover {
+    background-color: aqua;
+  }
+}
