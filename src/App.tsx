@@ -7,6 +7,8 @@ import { useAllIngredientsApi } from "./utils/burger-api";
 import { type Ingredient } from "./types/ingredient";
 import { Loading } from "./components/loading/loadng";
 import { Error } from "./components/error/error";
+import { store } from "./services/store";
+import { Provider } from "react-redux";
 
 function App() {
   const [selectedIngredients, setSelectedIngredients] = useState<Ingredient[]>(
@@ -20,11 +22,6 @@ function App() {
       setSelectedIngredients([...selectedIngredients, ingredient]);
     }
   };
-  const deleteIngedient = (deleteIndex: number) => {
-    setSelectedIngredients(
-      selectedIngredients.filter((ingredient, index) => index !== deleteIndex),
-    );
-  };
   const [pending, data, error] = useAllIngredientsApi();
   if (pending) {
     return <Loading />;
@@ -34,15 +31,13 @@ function App() {
   }
   return (
     <div className="App">
-      <AppHeader />
-      <section className="main">
-        <BurgerIngredients data={data} addIngedient={addIngedient} />
-        <BurgerConstructor
-          selectedIngredients={selectedIngredients}
-          selectedBun={selectedBun}
-          deleteIngedient={deleteIngedient}
-        />
-      </section>
+      <Provider store={store}>
+        <AppHeader />
+        <section className="main">
+          <BurgerIngredients data={data} addIngedient={addIngedient} />
+          <BurgerConstructor />
+        </section>
+      </Provider>
     </div>
   );
 }

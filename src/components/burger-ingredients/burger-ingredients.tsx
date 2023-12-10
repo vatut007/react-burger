@@ -23,7 +23,9 @@ export function BurgerIngredients(props: BurgerIngredientsProps) {
   };
 
   const [current, setCurrent] = useState(types[0]);
-  const [modalIngredient, setModalIngredient] = useState<Ingredient|undefined>();
+  const [modalIngredient, setModalIngredient] = useState<
+    Ingredient | undefined
+  >();
   const handleScroll: UIEventHandler<HTMLDivElement> = (event) => {
     for (let i = 0; i < types.length - 1; i++) {
       const { scrollTop } = event.target as HTMLDivElement;
@@ -59,7 +61,9 @@ export function BurgerIngredients(props: BurgerIngredientsProps) {
           />
         ))}
       </div>
-      { !!modalIngredient && <IngredientDetails dialogRef={dialogRef} ingredient={modalIngredient} />}
+      {!!modalIngredient && (
+        <IngredientDetails dialogRef={dialogRef} ingredient={modalIngredient} />
+      )}
     </div>
   );
 }

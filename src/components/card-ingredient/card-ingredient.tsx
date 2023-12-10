@@ -1,9 +1,10 @@
+import { useDispatch } from "react-redux";
 import { Ingredient } from "../../types/ingredient";
 import styles from "./card-ingredients.module.css";
+import { addIngredient } from "../../services/reducer/burger-constructor/actions";
 
 interface CardIngredientProps {
   ingredient: Ingredient;
-  addIngedient: (ingredient: Ingredient) => void;
   openModal: () => void;
   setModal(ingredient: Ingredient): void;
   price: number;
@@ -11,11 +12,12 @@ interface CardIngredientProps {
   image: string;
 }
 
-export function CardIngredient(props: CardIngredientProps) {
+export function CardIngredient({ ingredient, ...props }: CardIngredientProps) {
+  const dispatch = useDispatch();
   const handleClick = () => {
-    props.addIngedient(props.ingredient);
+    dispatch(addIngredient({ ingredient }));
     props.openModal();
-    props.setModal(props.ingredient);
+    props.setModal(ingredient);
   };
   return (
     <div className={styles.div} onClick={handleClick}>

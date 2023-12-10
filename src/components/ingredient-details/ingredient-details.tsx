@@ -4,12 +4,12 @@ import { IngredientDetailCalories } from "../ingredient-detail-calories/ingredie
 import { RefObject } from "react";
 import { Ingredient } from "../../types/ingredient";
 
-interface IngredientDetailsProps{
+interface IngredientDetailsProps {
   dialogRef: RefObject<HTMLDialogElement>;
-  ingredient: Ingredient
+  ingredient: Ingredient;
 }
 
-export function IngredientDetails(props:IngredientDetailsProps) {
+export function IngredientDetails(props: IngredientDetailsProps) {
   return (
     <Modal
       className={styles.modalContent}

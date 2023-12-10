@@ -8,16 +8,20 @@ import {
 import styles from "./burger-constructor.module.css";
 import { OrderDetail } from "../order-details/order-details";
 import { type Ingredient } from "../../types/ingredient";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectSelectedBun,
+  selectSelectedIngredients,
+} from "../../services/reducer/burger-constructor/selectors";
+import { removeIngredient } from "../../services/reducer/burger-constructor/actions";
 
-interface BurgerConstructorProps {
-  selectedIngredients: Ingredient[];
-  deleteIngedient: (deleteIndex: number) => void;
-  selectedBun: Ingredient | null;
-}
-
-export function BurgerConstructor(props: BurgerConstructorProps) {
+export function BurgerConstructor() {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  if (props.selectedBun == null) {
+  const selectedBun = useSelector(selectSelectedBun);
+  const selectedIngredients = useSelector(selectSelectedIngredients);
+  const dispatch = useDispatch();
+
+  if (selectedBun == null) {
     return (
       <div>
         <p className="text text_type_main-default">
@@ -30,11 +34,11 @@ export function BurgerConstructor(props: BurgerConstructorProps) {
       </div>
     );
   }
-  const summIngredients = props.selectedIngredients.reduce(
+  const summIngredients = selectedIngredients.reduce(
     (sum, current) => sum + current.price,
     0,
   );
-  const summBun = props.selectedBun.price * 2;
+  const summBun = selectedBun.price * 2;
   const summ = summIngredients + summBun;
   return (
     <div className={styles.order}>
@@ -42,12 +46,12 @@ export function BurgerConstructor(props: BurgerConstructorProps) {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={props.selectedBun.name}
-          price={props.selectedBun.price}
-          thumbnail={props.selectedBun.image}
+          text={selectedBun.name}
+          price={selectedBun.price}
+          thumbnail={selectedBun.image}
         />
         <div className={styles.burgerconstructor}>
-          {props.selectedIngredients.map((ingedient, index) => (
+          {selectedIngredients.map((ingedient, index) => (
             <div key={String(ingedient._id) + "_" + String(index)}>
               <DragIcon type="primary" />
               <ConstructorElement
@@ -55,7 +59,7 @@ export function BurgerConstructor(props: BurgerConstructorProps) {
                 text={ingedient.name}
                 price={ingedient.price}
                 thumbnail={ingedient.image}
-                handleClose={() => props.deleteIngedient(index)}
+                handleClose={() => dispatch(removeIngredient({ index }))}
               />
             </div>
           ))}
@@ -63,9 +67,9 @@ export function BurgerConstructor(props: BurgerConstructorProps) {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={props.selectedBun.name}
-          price={props.selectedBun.price}
-          thumbnail={props.selectedBun.image}
+          text={selectedBun.name}
+          price={selectedBun.price}
+          thumbnail={selectedBun.image}
         />
       </div>
       <div className={styles.currentOrder}>

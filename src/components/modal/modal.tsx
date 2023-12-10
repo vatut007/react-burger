@@ -14,18 +14,21 @@ export function Modal(props: ModalProps) {
   const handleCloseClick = () => {
     props.dialogRef.current?.close();
   };
-  const contentModalRef = useRef(null)
+  const contentModalRef = useRef(null);
   return (
     <>
-      <ModalOverPlay dialogRef={props.dialogRef} contentModalRef={contentModalRef} >
-        <div ref = {contentModalRef}>
-        <h2 className={styles.text + " text text_type_main-medium"}>
-          {props.title}
-        </h2>
-        <button className={styles.close_icon} onClick={handleCloseClick}>
-          <CloseIcon type="primary" />
-        </button>
-        {props.children}
+      <ModalOverPlay
+        dialogRef={props.dialogRef}
+        contentModalRef={contentModalRef}
+      >
+        <div ref={contentModalRef}>
+          <h2 className={styles.text + " text text_type_main-medium"}>
+            {props.title}
+          </h2>
+          <button className={styles.close_icon} onClick={handleCloseClick}>
+            <CloseIcon type="primary" />
+          </button>
+          {props.children}
         </div>
       </ModalOverPlay>
     </>

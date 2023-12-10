@@ -4,6 +4,7 @@ import { CardIngredient } from "../card-ingredient/card-ingredient";
 import { type Ingredient } from "../../types/ingredient";
 import { type MutableRefObject } from "react";
 import { type IngredientType } from "../../types/ingredient";
+import { useDispatch } from "react-redux";
 
 interface BurgerCardIngredientProps {
   type: IngredientType;
@@ -40,7 +41,6 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
             name={ingredient.name}
             image={ingredient.image}
             price={ingredient.price}
-            addIngedient={props.addIngedient}
             openModal={props.openModal}
             setModal={props.setModalIngredient}
           />
