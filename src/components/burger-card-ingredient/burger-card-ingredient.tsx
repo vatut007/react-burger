@@ -9,12 +9,10 @@ import { useDispatch } from "react-redux";
 interface BurgerCardIngredientProps {
   type: IngredientType;
   allIngredients: Ingredient[];
-  addIngedient(Ingredient: Ingredient): void;
   selectIngredient: MutableRefObject<
     Partial<Record<IngredientType, HTMLDivElement | null>>
   >;
   openModal(): void;
-  setModalIngredient(ingredient: Ingredient): void;
 }
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
@@ -42,7 +40,6 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
             image={ingredient.image}
             price={ingredient.price}
             openModal={props.openModal}
-            setModal={props.setModalIngredient}
           />
         ))}
       </div>

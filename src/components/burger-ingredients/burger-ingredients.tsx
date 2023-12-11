@@ -10,10 +10,11 @@ import {
   types,
 } from "../../types/ingredient";
 import { SelectIngredient } from "../../types/mutable";
+import { useSelector } from "react-redux";
+import { selectSelectedModalIngredient } from "../../services/reducer/burger-detail/selectors";
 
 interface BurgerIngredientsProps {
   data: IngredientList;
-  addIngedient: (ingredient: Ingredient) => void;
 }
 
 export function BurgerIngredients(props: BurgerIngredientsProps) {
@@ -23,9 +24,7 @@ export function BurgerIngredients(props: BurgerIngredientsProps) {
   };
 
   const [current, setCurrent] = useState(types[0]);
-  const [modalIngredient, setModalIngredient] = useState<
-    Ingredient | undefined
-  >();
+  const modalIngredient = useSelector(selectSelectedModalIngredient)
   const handleScroll: UIEventHandler<HTMLDivElement> = (event) => {
     for (let i = 0; i < types.length - 1; i++) {
       const { scrollTop } = event.target as HTMLDivElement;
@@ -53,16 +52,14 @@ export function BurgerIngredients(props: BurgerIngredientsProps) {
           <BurgerCardIngredient
             type={type}
             allIngredients={props.data}
-            addIngedient={props.addIngedient}
             selectIngredient={selectIngredient}
             key={type}
             openModal={openModal}
-            setModalIngredient={setModalIngredient}
           />
         ))}
       </div>
       {!!modalIngredient && (
-        <IngredientDetails dialogRef={dialogRef} ingredient={modalIngredient} />
+        <IngredientDetails dialogRef={dialogRef}/>
       )}
     </div>
   );
