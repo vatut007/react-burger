@@ -7,8 +7,10 @@ import { selectSelectedModalIngredient } from "../../services/reducer/burger-det
 export const detail = ["calories", "proteins", "fat", "carbohydrates"] as const;
 
 export function IngredientDetailCalories() {
-  const ingredient = useSelector(selectSelectedModalIngredient)
-  if (!ingredient){return null}
+  const ingredient = useSelector(selectSelectedModalIngredient);
+  if (!ingredient) {
+    return null;
+  }
   return (
     <div className={styles.detail}>
       {detail.map((detail) => (

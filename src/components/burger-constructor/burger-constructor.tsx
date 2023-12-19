@@ -1,29 +1,43 @@
 import { useRef } from "react";
 import {
-  DragIcon,
   CurrencyIcon,
   Button,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import { OrderDetail } from "../order-details/order-details";
-import { type Ingredient } from "../../types/ingredient";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectSelectedBun,
   selectSelectedIngredients,
 } from "../../services/reducer/burger-constructor/selectors";
-import { removeIngredient } from "../../services/reducer/burger-constructor/actions";
+import {
+  addIngredient
+} from "../../services/reducer/burger-constructor/actions";
+import { useOrderDetailMutation } from "../../services/api/api-slice";
+import {useDrop } from "react-dnd";
+import { Ingredient } from "../../types/ingredient";
+import clsx from "clsx";
+import { ConstructorElements } from "../constructor-element/constructor-elements";
 
 export function BurgerConstructor() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const selectedBun = useSelector(selectSelectedBun);
   const selectedIngredients = useSelector(selectSelectedIngredients);
   const dispatch = useDispatch();
-
+  const [triger, { data, error, isLoading }] = useOrderDetailMutation();
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(ingredient: Ingredient) {
+      dispatch(addIngredient({ ingredient }));
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
   if (selectedBun == null) {
     return (
-      <div>
+      <div ref={dropTarget}>
         <p className="text text_type_main-default">
           Необходимо добавить ингредиенты и булки.
         </p>
@@ -41,7 +55,10 @@ export function BurgerConstructor() {
   const summBun = selectedBun.price * 2;
   const summ = summIngredients + summBun;
   return (
-    <div className={styles.order}>
+    <div
+      className={clsx(styles.order, isHover && styles.dropOrder)}
+      ref={dropTarget}
+    >
       <div className={styles.constructorElement}>
         <ConstructorElement
           type="top"
@@ -51,17 +68,12 @@ export function BurgerConstructor() {
           thumbnail={selectedBun.image}
         />
         <div className={styles.burgerconstructor}>
-          {selectedIngredients.map((ingedient, index) => (
-            <div key={String(ingedient._id) + "_" + String(index)}>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                isLocked={false}
-                text={ingedient.name}
-                price={ingedient.price}
-                thumbnail={ingedient.image}
-                handleClose={() => dispatch(removeIngredient({ index }))}
-              />
-            </div>
+          {selectedIngredients.map((ingredient, index) => (
+            <ConstructorElements
+              ingredient={ingredient}
+              index={index}
+              key={ingredient.cart_item_id}
+            />
           ))}
         </div>
         <ConstructorElement
@@ -82,11 +94,18 @@ export function BurgerConstructor() {
           extraClass="ml-2"
           onClick={() => {
             dialogRef.current?.showModal();
+            triger(selectedIngredients);
           }}
         >
           Оформить заказ
         </Button>
-        <OrderDetail dialogRef={dialogRef} />
+        <OrderDetail
+          dialogRef={dialogRef}
+          orderNumber={data?.orderNumber}
+          nameBurger={data?.name}
+          isLoading={isLoading}
+          error={error && ("error" in error ? error.error : String(error))}
+        />
       </div>
     </div>
   );

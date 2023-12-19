@@ -4,7 +4,8 @@ import { BurgerIngredients } from "./components/burger-ingredients/burger-ingred
 import { BurgerConstructor } from "./components/burger-constructor/burger-constructor";
 import { Loading } from "./components/loading/loadng";
 import { Error } from "./components/error/error";
-
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { useGetAllIngredientQuery } from "./services/api/api-slice";
 
 function App() {
@@ -18,10 +19,12 @@ function App() {
   return (
     <div className="App">
       <AppHeader />
-      <section className="main">
-        <BurgerIngredients data={data} />
-        <BurgerConstructor />
-      </section>
+      <DndProvider backend={HTML5Backend}>
+        <section className="main">
+          <BurgerIngredients data={data} />
+          <BurgerConstructor />
+        </section>
+      </DndProvider>
     </div>
   );
 }

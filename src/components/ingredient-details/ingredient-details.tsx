@@ -11,7 +11,7 @@ interface IngredientDetailsProps {
 }
 
 export function IngredientDetails(props: IngredientDetailsProps) {
-  const ingredient = useSelector(selectSelectedModalIngredient)
+  const ingredient = useSelector(selectSelectedModalIngredient);
   return (
     <Modal
       className={styles.modalContent}
@@ -27,7 +27,7 @@ export function IngredientDetails(props: IngredientDetailsProps) {
         <p className={styles.name + " text text_type_main-small"}>
           {ingredient?.name}
         </p>
-        <IngredientDetailCalories/>
+        <IngredientDetailCalories />
       </div>
     </Modal>
   );

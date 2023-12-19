@@ -4,6 +4,7 @@ import {
   IngredientList,
   type IngredientListResponse,
 } from "../../types/ingredient";
+import { ApiResponseOrder, ResponseOrder } from "../../types/order";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -15,9 +16,23 @@ export const apiSlice = createApi({
         return baseQueryReturnValue.data;
       },
     }),
+    orderDetail: builder.mutation<ResponseOrder, IngredientList>({
+      query: (ingredientList) => ({
+        headers: { Authorization: "123" },
+        url: "orders",
+        method: "POST",
+        body: {
+          ingredients: ingredientList.map((ingredient) => ingredient._id),
+        },
+      }),
+      transformResponse(baseQueryReturnValue: ApiResponseOrder) {
+        return {
+          name: baseQueryReturnValue.name,
+          orderNumber: baseQueryReturnValue.order.number,
+        };
+      },
+    }),
   }),
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const { useGetAllIngredientQuery } = apiSlice;
+export const { useGetAllIngredientQuery, useOrderDetailMutation } = apiSlice;
