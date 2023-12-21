@@ -10,6 +10,7 @@ export const burgerConstructorSlice = createSlice({
   initialState: {
     bun: null as Ingredient | null,
     ingredients: [] as IngredientConstructorList,
+    ingredientCount: {} as Record<string,number>
   },
   reducers: {
     addIngredient: {
@@ -24,6 +25,11 @@ export const burgerConstructorSlice = createSlice({
             ...action.payload.ingredient,
             cart_item_id: action.payload.cartItemId,
           });
+          if (action.payload.ingredient._id in state.ingredientCount){
+            state.ingredientCount[action.payload.ingredient._id]++
+          } else {
+            state.ingredientCount[action.payload.ingredient._id]=1
+          }
         }
       },
       prepare({ ingredient }: { ingredient: Ingredient }) {
@@ -31,10 +37,11 @@ export const burgerConstructorSlice = createSlice({
         return { payload: { cartItemId, ingredient } };
       },
     },
-    removeIngredient(state, action: PayloadAction<{ cartItemId: string }>) {
+    removeIngredient(state, action: PayloadAction<{ cartItemId: string, ingeredient_id: string }>) {
       state.ingredients = state.ingredients.filter(
         (item) => item.cart_item_id !== action.payload.cartItemId,
       );
+      state.ingredientCount[action.payload.ingeredient_id]--
     },
     moveIngredient(
       state,

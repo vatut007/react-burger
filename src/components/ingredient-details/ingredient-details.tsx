@@ -22,7 +22,7 @@ export function IngredientDetails(props: IngredientDetailsProps) {
         <img
           className={styles.img}
           src={ingredient?.image}
-          alt="Картинка"
+          alt={ingredient?.name}
         ></img>
         <p className={styles.name + " text text_type_main-small"}>
           {ingredient?.name}

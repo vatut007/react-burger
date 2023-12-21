@@ -1,14 +1,12 @@
 import styles from "./burger-card-ingredient.module.css";
 import { ingredientNames } from "../burger-type-tab/burger-type-tab";
 import { CardIngredient } from "../card-ingredient/card-ingredient";
-import { type Ingredient } from "../../types/ingredient";
 import { type MutableRefObject } from "react";
 import { type IngredientType } from "../../types/ingredient";
-import { useDispatch } from "react-redux";
+import { useGetAllIngredientQuery } from "../../services/api/api-slice";
 
 interface BurgerCardIngredientProps {
   type: IngredientType;
-  allIngredients: Ingredient[];
   selectIngredient: MutableRefObject<
     Partial<Record<IngredientType, HTMLDivElement | null>>
   >;
@@ -16,7 +14,8 @@ interface BurgerCardIngredientProps {
 }
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
-  const filteredIngredients = props.allIngredients.filter(
+  const { data:allIngredients} = useGetAllIngredientQuery(undefined);
+  const filteredIngredients = allIngredients?.filter(
     (ingredient) => ingredient.type === props.type,
   );
   return (
@@ -32,7 +31,7 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
         </p>
       </div>
       <div className={styles.bun}>
-        {filteredIngredients.map((ingredient) => (
+        {filteredIngredients?.map((ingredient) => (
           <CardIngredient
             key={ingredient._id}
             ingredient={ingredient}
