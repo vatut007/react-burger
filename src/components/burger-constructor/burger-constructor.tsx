@@ -63,7 +63,7 @@ export function BurgerConstructor() {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={selectedBun.name}
+          text={selectedBun.name+'\n(вверх)'}
           price={selectedBun.price}
           thumbnail={selectedBun.image}
         />
@@ -79,7 +79,7 @@ export function BurgerConstructor() {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={selectedBun.name}
+          text={selectedBun.name+'\n(низ)'}
           price={selectedBun.price}
           thumbnail={selectedBun.image}
         />

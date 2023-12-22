@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { Ingredient } from "../../types/ingredient";
 import { IngredientCalories } from "../ingredient-calories/ingredient-calories";
 import styles from "./ingredient-detail-calories.module.css";
 import { selectSelectedModalIngredient } from "../../services/reducer/burger-detail/selectors";
@@ -12,6 +11,17 @@ export function IngredientDetailCalories() {
     return null;
   }
   return (
+    <>
+    <div className={styles.div}>
+    <img
+      className={styles.img}
+      src={ingredient?.image}
+      alt={ingredient?.name}
+    ></img>
+    <p className={styles.name + " text text_type_main-small"}>
+      {ingredient?.name}
+    </p>
+    </div>
     <div className={styles.detail}>
       {detail.map((detail) => (
         <IngredientCalories
@@ -21,5 +31,6 @@ export function IngredientDetailCalories() {
         />
       ))}
     </div>
+    </>
   );
 }
