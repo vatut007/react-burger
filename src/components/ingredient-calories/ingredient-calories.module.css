@@ -1,8 +1,10 @@
 .detail {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 .text {
   width: 100%;
   text-wrap: nowrap;
+  font-size: smaller;
 }

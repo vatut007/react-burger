@@ -14,7 +14,7 @@ interface BurgerCardIngredientProps {
 }
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
-  const { data:allIngredients} = useGetAllIngredientQuery(undefined);
+  const { data: allIngredients } = useGetAllIngredientQuery(undefined);
   const filteredIngredients = allIngredients?.filter(
     (ingredient) => ingredient.type === props.type,
   );

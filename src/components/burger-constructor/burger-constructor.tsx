@@ -11,11 +11,9 @@ import {
   selectSelectedBun,
   selectSelectedIngredients,
 } from "../../services/reducer/burger-constructor/selectors";
-import {
-  addIngredient
-} from "../../services/reducer/burger-constructor/actions";
+import { addIngredient } from "../../services/reducer/burger-constructor/actions";
 import { useOrderDetailMutation } from "../../services/api/api-slice";
-import {useDrop } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { Ingredient } from "../../types/ingredient";
 import clsx from "clsx";
 import { ConstructorElements } from "../constructor-element/constructor-elements";
@@ -63,7 +61,7 @@ export function BurgerConstructor() {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={selectedBun.name+'\n(вверх)'}
+          text={selectedBun.name + "\n(верх)"}
           price={selectedBun.price}
           thumbnail={selectedBun.image}
         />
@@ -79,7 +77,7 @@ export function BurgerConstructor() {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={selectedBun.name+'\n(низ)'}
+          text={selectedBun.name + "\n(низ)"}
           price={selectedBun.price}
           thumbnail={selectedBun.image}
         />
@@ -94,7 +92,7 @@ export function BurgerConstructor() {
           extraClass="ml-2"
           onClick={() => {
             dialogRef.current?.showModal();
-            triger(selectedIngredients);
+            triger([selectedBun, ...selectedIngredients, selectedBun]);
           }}
         >
           Оформить заказ

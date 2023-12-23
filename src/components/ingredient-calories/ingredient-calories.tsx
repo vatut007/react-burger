@@ -24,7 +24,7 @@ export function IngredientCalories(props: IngredientCaloriesProps) {
       </p>
       <p
         className={
-          styles.text + " text text_type_main-default text_color_inactive"
+          styles.value + " text text_type_digits-default  text_color_inactive"
         }
       >
         {props.value}

@@ -18,7 +18,6 @@ export const apiSlice = createApi({
     }),
     orderDetail: builder.mutation<ResponseOrder, IngredientList>({
       query: (ingredientList) => ({
-        headers: { Authorization: "123" },
         url: "orders",
         method: "POST",
         body: {

@@ -65,8 +65,12 @@ export function ConstructorElements({
         price={ingredient.price}
         thumbnail={ingredient.image}
         handleClose={() =>
-          dispatch(removeIngredient({ cartItemId: ingredient.cart_item_id ,
-            ingeredient_id:ingredient._id}))
+          dispatch(
+            removeIngredient({
+              cartItemId: ingredient.cart_item_id,
+              ingeredient_id: ingredient._id,
+            }),
+          )
         }
       />
     </div>

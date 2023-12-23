@@ -2,12 +2,9 @@ import { UIEventHandler, useRef, useState } from "react";
 import styles from "./burger-ingredients.module.css";
 import { BurgerTypeTabs } from "../burger-type-tabs/burger-type-tabs";
 import { BurgerCardIngredient } from "../burger-card-ingredient/burger-card-ingredient";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { IngredientDetailsModal } from "../ingredient-details-modal/ingredient-details-modal";
 import { IngredientType, types } from "../../types/ingredient";
 import { SelectIngredient } from "../../types/mutable";
-import { useSelector } from "react-redux";
-import { selectSelectedModalIngredient } from "../../services/reducer/burger-detail/selectors";
-
 
 export function BurgerIngredients() {
   const selectIngredient = useRef<SelectIngredient>({});
@@ -15,8 +12,6 @@ export function BurgerIngredients() {
     selectIngredient.current[type]?.scrollIntoView({ behavior: "smooth" });
   };
   const [current, setCurrent] = useState(types[0]);
-  const modalIngredient = useSelector(selectSelectedModalIngredient);
-
   const handleScroll: UIEventHandler<HTMLDivElement> = (event) => {
     for (let i = 0; i < types.length - 1; i++) {
       const { scrollTop } = event.target as HTMLDivElement;
@@ -49,7 +44,7 @@ export function BurgerIngredients() {
           />
         ))}
       </div>
-      {!!modalIngredient && <IngredientDetails dialogRef={dialogRef} />}
+      <IngredientDetailsModal dialogRef={dialogRef} />
     </div>
   );
 }

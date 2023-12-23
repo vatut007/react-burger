@@ -3,7 +3,7 @@
   background-color: rgba(0, 0, 0);
   padding: 40px 40px 60px;
   &::backdrop {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
   }
 }
 .text {

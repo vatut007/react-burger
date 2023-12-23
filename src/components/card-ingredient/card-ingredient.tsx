@@ -4,7 +4,10 @@ import styles from "./card-ingredients.module.css";
 import { selectIngredient } from "../../services/reducer/burger-detail/actions";
 import { useDrag } from "react-dnd";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { selectSelectedBun, selectSelectedIngredientCount } from "../../services/reducer/burger-constructor/selectors";
+import {
+  selectSelectedBun,
+  selectSelectedIngredientCount,
+} from "../../services/reducer/burger-constructor/selectors";
 
 interface CardIngredientProps {
   ingredient: Ingredient;
@@ -17,9 +20,9 @@ interface CardIngredientProps {
 export function CardIngredient({ ingredient, ...props }: CardIngredientProps) {
   const dispatch = useDispatch();
   const selectedBun = useSelector(selectSelectedBun);
-  let count = useSelector(selectSelectedIngredientCount)[ingredient._id]
-  if (ingredient.type==='bun'&& selectedBun?._id === ingredient._id){
-    count = 2
+  let count = useSelector(selectSelectedIngredientCount)[ingredient._id];
+  if (ingredient.type === "bun" && selectedBun?._id === ingredient._id) {
+    count = 2;
   }
   const handleClick = () => {
     props.openModal();

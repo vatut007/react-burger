@@ -16,10 +16,10 @@ interface OrderDetailProps {
 export function OrderDetail(props: OrderDetailProps) {
   return (
     <Modal className={styles.modalContent} dialogRef={props.dialogRef}>
-      <p className={styles.name + " text text_type_digits-medium"}>
+      <p className={styles.order + " text text_type_digits-large"}>
         {props.orderNumber}
       </p>
-      <p className={styles.order + " text text_type_main-small"}>
+      <p className={styles.name + " text text_type_main-small"}>
         {props.nameBurger}
       </p>
       <div className={styles.checkMarkIcon}>
@@ -27,14 +27,14 @@ export function OrderDetail(props: OrderDetailProps) {
       </div>
       {!props.isLoading ? (
         <p className={styles.order + " text text_type_main-small"}>
-          "Ваш заказ начали готовить"
+          Ваш заказ начали готовить
         </p>
       ) : (
         <Loading />
       )}
       {!props.error ? (
         <p className={"text text_type_main-default text_color_inactive"}>
-          "Дождитесь готовности на орбитальной станции"
+          Дождитесь готовности на орбитальной станции
         </p>
       ) : (
         <Error error={props.error} />
