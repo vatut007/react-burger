@@ -7,6 +7,7 @@
   flex-direction: column;
   width: 300px;
   height: 300px;
+  position: relative;
 
   &:hover {
     background-color: aqua;

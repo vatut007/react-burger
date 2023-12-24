@@ -15,7 +15,13 @@ export type Ingredient = {
   __v: number;
 };
 
+export type IngredientConstructor = Ingredient & {
+  cart_item_id: string;
+};
+
 export type IngredientList = Ingredient[];
+
+export type IngredientConstructorList = IngredientConstructor[];
 
 export type IngredientListResponse = { success: boolean; data: IngredientList };
 

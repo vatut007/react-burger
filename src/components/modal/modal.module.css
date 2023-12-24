@@ -1,17 +1,11 @@
-.modal {
-  justify-content: center;
-  flex-direction: column;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.6);
-}
 .text {
   color: white;
 }
 .close_icon {
   display: block;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 15px;
+  top: 15px;
   background: None;
   border: None;
   outline: None;

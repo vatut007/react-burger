@@ -3,9 +3,11 @@
   color: white;
   padding-bottom: 32px;
   padding-top: 30px;
+  text-align: center;
 }
 .order {
   color: white;
+  text-align: center;
 }
 .checkMarkIcon {
   display: flex;

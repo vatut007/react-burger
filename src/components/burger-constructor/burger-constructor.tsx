@@ -1,25 +1,41 @@
 import { useRef } from "react";
 import {
-  DragIcon,
   CurrencyIcon,
   Button,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import { OrderDetail } from "../order-details/order-details";
-import { type Ingredient } from "../../types/ingredient";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectSelectedBun,
+  selectSelectedIngredients,
+} from "../../services/reducer/burger-constructor/selectors";
+import { addIngredient } from "../../services/reducer/burger-constructor/actions";
+import { useOrderDetailMutation } from "../../services/api/api-slice";
+import { useDrop } from "react-dnd";
+import { Ingredient } from "../../types/ingredient";
+import clsx from "clsx";
+import { ConstructorElements } from "../constructor-element/constructor-elements";
 
-interface BurgerConstructorProps {
-  selectedIngredients: Ingredient[];
-  deleteIngedient: (deleteIndex: number) => void;
-  selectedBun: Ingredient | null;
-}
-
-export function BurgerConstructor(props: BurgerConstructorProps) {
+export function BurgerConstructor() {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  if (props.selectedBun == null) {
+  const selectedBun = useSelector(selectSelectedBun);
+  const selectedIngredients = useSelector(selectSelectedIngredients);
+  const dispatch = useDispatch();
+  const [triger, { data, error, isLoading }] = useOrderDetailMutation();
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(ingredient: Ingredient) {
+      dispatch(addIngredient({ ingredient }));
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
+  if (selectedBun == null) {
     return (
-      <div>
+      <div ref={dropTarget}>
         <p className="text text_type_main-default">
           Необходимо добавить ингредиенты и булки.
         </p>
@@ -30,42 +46,40 @@ export function BurgerConstructor(props: BurgerConstructorProps) {
       </div>
     );
   }
-  const summIngredients = props.selectedIngredients.reduce(
+  const summIngredients = selectedIngredients.reduce(
     (sum, current) => sum + current.price,
     0,
   );
-  const summBun = props.selectedBun.price * 2;
+  const summBun = selectedBun.price * 2;
   const summ = summIngredients + summBun;
   return (
-    <div className={styles.order}>
+    <div
+      className={clsx(styles.order, isHover && styles.dropOrder)}
+      ref={dropTarget}
+    >
       <div className={styles.constructorElement}>
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={props.selectedBun.name}
-          price={props.selectedBun.price}
-          thumbnail={props.selectedBun.image}
+          text={selectedBun.name + "\n(верх)"}
+          price={selectedBun.price}
+          thumbnail={selectedBun.image}
         />
         <div className={styles.burgerconstructor}>
-          {props.selectedIngredients.map((ingedient, index) => (
-            <div key={String(ingedient._id) + "_" + String(index)}>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                isLocked={false}
-                text={ingedient.name}
-                price={ingedient.price}
-                thumbnail={ingedient.image}
-                handleClose={() => props.deleteIngedient(index)}
-              />
-            </div>
+          {selectedIngredients.map((ingredient, index) => (
+            <ConstructorElements
+              ingredient={ingredient}
+              index={index}
+              key={ingredient.cart_item_id}
+            />
           ))}
         </div>
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={props.selectedBun.name}
-          price={props.selectedBun.price}
-          thumbnail={props.selectedBun.image}
+          text={selectedBun.name + "\n(низ)"}
+          price={selectedBun.price}
+          thumbnail={selectedBun.image}
         />
       </div>
       <div className={styles.currentOrder}>
@@ -78,11 +92,18 @@ export function BurgerConstructor(props: BurgerConstructorProps) {
           extraClass="ml-2"
           onClick={() => {
             dialogRef.current?.showModal();
+            triger([selectedBun, ...selectedIngredients, selectedBun]);
           }}
         >
           Оформить заказ
         </Button>
-        <OrderDetail dialogRef={dialogRef} />
+        <OrderDetail
+          dialogRef={dialogRef}
+          orderNumber={data?.orderNumber}
+          nameBurger={data?.name}
+          isLoading={isLoading}
+          error={error && ("error" in error ? error.error : String(error))}
+        />
       </div>
     </div>
   );

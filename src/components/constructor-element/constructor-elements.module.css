@@ -1,0 +1,13 @@
+.elementDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.dragIcon {
+  width: auto;
+  height: auto;
+}
+.dropElementDiv {
+  opacity: 0;
+}
