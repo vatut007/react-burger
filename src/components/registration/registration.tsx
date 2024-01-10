@@ -6,16 +6,15 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
+import { useRegistrationMutation } from "../../services/api/api-slice";
 
 export function Registration() {
   const [valueEmail, setValueEmail] = useState("bob@example.com");
   const [valuePassword, setValuePassword] = useState("password");
   const [value, setValue] = useState("Ильяс");
   const inputRef = useRef(null);
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
-  };
+  const [triger, {data, error, isLoading}] = useRegistrationMutation();
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setValueEmail(e.target.value);
   };
@@ -33,7 +32,6 @@ export function Registration() {
         name={"name"}
         error={false}
         ref={inputRef}
-        onIconClick={onIconClick}
         errorText={"Ошибка"}
         size={"default"}
         extraClass="ml-1"
@@ -51,12 +49,14 @@ export function Registration() {
         name={"password"}
         extraClass="mb-2"
       />
-      <Button htmlType="button" type="primary" size="medium">
+      <Button htmlType="button" type="primary" size="medium" onClick={()=>{
+        triger({email: valueEmail, password: valuePassword, name: value})
+      }}>
         Зарегистроваться
       </Button>
       <div>
         <p className="text text_type_main-default">
-          Уже зарегистрированны? Войти
+          Уже зарегистрированны? <Link to="/login">Войти</Link>
         </p>
       </div>
     </div>

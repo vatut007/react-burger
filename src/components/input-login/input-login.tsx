@@ -5,6 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ChangeEvent, useState } from "react";
 import styles from "./input-login.module.css";
+import { Link } from "react-router-dom";
 
 export function InputLogin() {
   const [valueEmail, setValueEmail] = useState("bob@example.com");
@@ -36,10 +37,10 @@ export function InputLogin() {
       </Button>
       <div>
         <p className="text text_type_main-default">
-          Вы - новый пользователь? Зарегистроваться
+          Вы - новый пользователь? <Link to="/register">Зарегистроваться</Link>
         </p>
         <p className="text text_type_main-default">
-          Забыли пароль? Воостановить пароль
+          Забыли пароль? <Link to="/forgot-password">Воостановить пароль</Link>
         </p>
       </div>
     </div>
