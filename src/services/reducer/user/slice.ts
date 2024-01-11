@@ -10,14 +10,10 @@ export const userSlice = createSlice({
         refreshToken: null as string|null,
     },
     reducers:{
-        addUser:{
-            reducer(
-                state,
-                action: PayloadAction<{email:string, name: string}>,
-                {
-                    state.user = action.payload.user;
-                }
-            )
+        addUser(
+            state,
+            action: PayloadAction<{email:string, name:string}>,
+        ) {
+            
         }
     }
-})
