@@ -27,10 +27,10 @@ export function ForgotPassword() {
         htmlType="button"
         type="primary"
         size="medium"
-        onClick={async() => {
-          const response = await triger({email:valueEmail});
-          if ('data' in response && response.data.success){
-            navigate('/forgot-password2', {replace: true})
+        onClick={async () => {
+          const response = await triger({ email: valueEmail });
+          if ("data" in response && response.data.success) {
+            navigate("/forgot-password2", { replace: true });
           }
         }}
       >

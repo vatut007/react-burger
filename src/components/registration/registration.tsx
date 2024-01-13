@@ -6,20 +6,35 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRegistrationMutation } from "../../services/api/api-slice";
+import { useDispatch } from "react-redux";
+import {
+  addAccessToken,
+  addRefreshToken,
+  addUser,
+} from "../../services/reducer/user/actions";
+import { ResponseRegistration } from "../../types/registration";
 
 export function Registration() {
+  let navigate = useNavigate();
   const [valueEmail, setValueEmail] = useState("bob@example.com");
   const [valuePassword, setValuePassword] = useState("password");
   const [value, setValue] = useState("Ильяс");
   const inputRef = useRef(null);
-  const [triger, {data, error, isLoading}] = useRegistrationMutation();
+  const dispatch = useDispatch();
+  const [triger, { data, error, isLoading }] = useRegistrationMutation();
   const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setValueEmail(e.target.value);
   };
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setValuePassword(e.target.value);
+  };
+  const updateUserStorage = (data: ResponseRegistration) => {
+    dispatch(addUser({ email: data?.user.email, name: data.user.name }));
+    dispatch(addAccessToken({ accessToken: data.accessToken }));
+    dispatch(addRefreshToken({ refreshToken: data.refreshToken }));
+    localStorage.setItem("refreshToken", data.refreshToken);
   };
   return (
     <div className={styles.registartionDiv}>
@@ -49,9 +64,22 @@ export function Registration() {
         name={"password"}
         extraClass="mb-2"
       />
-      <Button htmlType="button" type="primary" size="medium" onClick={()=>{
-        triger({email: valueEmail, password: valuePassword, name: value})
-      }}>
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        onClick={async () => {
+          const response = await triger({
+            email: valueEmail,
+            password: valuePassword,
+            name: value,
+          });
+          if ("data" in response && response.data.success) {
+            updateUserStorage(response.data);
+            navigate("/");
+          }
+        }}
+      >
         Зарегистроваться
       </Button>
       <div>

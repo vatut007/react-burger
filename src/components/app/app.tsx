@@ -5,8 +5,59 @@ import { RegisterPage } from "../../pages/register/register";
 import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password";
 import { ForgotPassword2Page } from "../../pages/forgot-password2/forgot-password2";
 import { ProfilePage } from "../../pages/profile/profile";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addAccessToken,
+  addRefreshToken,
+  addUser,
+} from "../../services/reducer/user/actions";
+import { selectSelectedAccessToken } from "../../services/reducer/user/selector";
+import {
+  useGetUserQuery,
+  useUpdateAccessTokenMutation,
+} from "../../services/api/api-slice";
 
 function App() {
+  const dispath = useDispatch();
+  const [trigger, { isLoading: tokenLoading }] = useUpdateAccessTokenMutation();
+  const accessToken = useSelector(selectSelectedAccessToken);
+  const {
+    data,
+    error,
+    isLoading: userLoading,
+  } = useGetUserQuery(accessToken ?? "", {
+    skip: !accessToken,
+  });
+  const isLoading = tokenLoading || userLoading;
+  useEffect(() => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    console.log(refreshToken);
+    if (refreshToken) {
+      if (accessToken == null) {
+        const updateToken = async () => {
+          const response = await trigger({ refreshToken });
+          if ("data" in response && response.data.success) {
+            const { accessToken, refreshToken } = response.data;
+            localStorage.setItem("refreshToken", refreshToken);
+            dispath(addAccessToken({ accessToken }));
+            dispath(addRefreshToken({ refreshToken }));
+          }
+        };
+        updateToken();
+      }
+    }
+  }, []);
+  useEffect(() => {
+    if (data) {
+      dispath(addUser(data));
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <div>Пожалуйста подождите</div>;
+  }
+
   return (
     <Router>
       <Routes>
