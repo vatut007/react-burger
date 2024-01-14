@@ -5,3 +5,7 @@
   justify-content: space-between;
   padding: 10%;
 }
+.button {
+  display: flex;
+  align-items: center;
+}

@@ -15,32 +15,32 @@ export function ForgotPassword() {
   };
   const [triger, { data, error, isLoading }] = usePasswordResetMutation();
   return (
-    <div className={styles.forgotDiv}>
-      <p className="text text_type_main-medium">Воостановление пароля</p>
-      <EmailInput
-        onChange={onChangeEmail}
-        value={valueEmail}
-        name={"email"}
-        placeholder="Укажите Email"
-      />
-      <Button
-        htmlType="button"
-        type="primary"
-        size="medium"
-        onClick={async () => {
-          const response = await triger({ email: valueEmail });
-          if ("data" in response && response.data.success) {
-            navigate("/forgot-password2", { replace: true });
-          }
-        }}
-      >
-        Воcстановить
-      </Button>
-      <div>
-        <p className="text text_type_main-default">
-          Вспомнили пароль? <Link to="/login">Войти</Link>
-        </p>
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        const response = await triger({ email: valueEmail });
+        if ("data" in response && response.data.success) {
+          navigate("/forgot-password2", { replace: true });
+        }
+      }}
+    >
+      <div className={styles.forgotDiv}>
+        <p className="text text_type_main-medium">Воостановление пароля</p>
+        <EmailInput
+          onChange={onChangeEmail}
+          value={valueEmail}
+          name={"email"}
+          placeholder="Укажите Email"
+        />
+        <Button htmlType="submit" type="primary" size="medium">
+          Воcстановить
+        </Button>
+        <div>
+          <p className="text text_type_main-default">
+            Вспомнили пароль? <Link to="/login">Войти</Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }

@@ -21,7 +21,6 @@ export function IngredientPage() {
   }, [data]);
   return (
     <div className={styles.div}>
-      <AppHeader />
       <div className={styles.detailDiv}>
         <IngredientDetail />
       </div>

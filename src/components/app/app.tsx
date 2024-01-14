@@ -17,6 +17,7 @@ import {
   useUpdateAccessTokenMutation,
 } from "../../services/api/api-slice";
 import { AppRoutes } from "../routes/routes";
+import { AppHeader } from "../app-header/app-header";
 
 function App() {
   const dispath = useDispatch();
@@ -59,6 +60,7 @@ function App() {
 
   return (
     <Router>
+      <AppHeader />
       <AppRoutes />
     </Router>
   );

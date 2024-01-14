@@ -34,46 +34,50 @@ export function InputLogin() {
     localStorage.setItem("refreshToken", data.refreshToken);
   };
   return (
-    <div className={styles.loginDiv}>
-      <p className="text text_type_main-medium">Вход</p>
-      <EmailInput
-        onChange={onChangeEmail}
-        value={valueEmail}
-        name={"email"}
-        isIcon={true}
-        extraClass="mb-2"
-      />
-      <PasswordInput
-        onChange={onChangePassword}
-        value={valuePassword}
-        name={"password"}
-        extraClass="mb-2"
-      />
-      <Button
-        htmlType="button"
-        type="primary"
-        size="medium"
-        onClick={async () => {
-          const response = await trigger({
-            email: valueEmail,
-            password: valuePassword,
-          });
-          if ("data" in response && response.data.success) {
-            updateUserStorage(response.data);
-            navigate("/");
-          }
-        }}
-      >
-        Войти
-      </Button>
-      <div>
-        <p className="text text_type_main-default">
-          Вы - новый пользователь? <Link to="/register">Зарегистроваться</Link>
-        </p>
-        <p className="text text_type_main-default">
-          Забыли пароль? <Link to="/forgot-password">Воостановить пароль</Link>
-        </p>
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        const response = await trigger({
+          email: valueEmail,
+          password: valuePassword,
+        });
+        console.log(response);
+        if ("data" in response && response.data.success) {
+          updateUserStorage(response.data);
+          navigate("/");
+        }
+      }}
+    >
+      <div className={styles.loginDiv}>
+        <p className="text text_type_main-medium">Вход</p>
+        <EmailInput
+          onChange={onChangeEmail}
+          value={valueEmail}
+          name={"email"}
+          isIcon={true}
+          extraClass="mb-2"
+        />
+        <PasswordInput
+          onChange={onChangePassword}
+          value={valuePassword}
+          name={"password"}
+          extraClass="mb-2"
+        />
+        <Button htmlType="submit" size="medium">
+          Войти
+        </Button>
+
+        <div>
+          <p className="text text_type_main-default">
+            Вы - новый пользователь?{" "}
+            <Link to="/register">Зарегистроваться</Link>
+          </p>
+          <p className="text text_type_main-default">
+            Забыли пароль?{" "}
+            <Link to="/forgot-password">Воостановить пароль</Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }
