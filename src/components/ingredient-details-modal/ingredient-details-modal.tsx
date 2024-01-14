@@ -13,6 +13,7 @@ export function IngredientDetailsModal(props: IngredientDetailsProps) {
       className={styles.modalContent}
       title={"Детали ингредиента"}
       dialogRef={props.dialogRef}
+      isIngredientDetail={true}
     >
       <IngredientDetail />
     </Modal>

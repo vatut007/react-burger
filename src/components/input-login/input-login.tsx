@@ -8,7 +8,11 @@ import styles from "./input-login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../services/api/api-slice";
 import { useDispatch } from "react-redux";
-import { addAccessToken, addRefreshToken, addUser } from "../../services/reducer/user/actions";
+import {
+  addAccessToken,
+  addRefreshToken,
+  addUser,
+} from "../../services/reducer/user/actions";
 import { ResponseRegistration } from "../../types/registration";
 
 export function InputLogin() {
@@ -22,7 +26,7 @@ export function InputLogin() {
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setValuePassword(e.target.value);
   };
-  const [trigger, {data, error, isLoading}] = useLoginMutation();
+  const [trigger, { data, error, isLoading }] = useLoginMutation();
   const updateUserStorage = (data: ResponseRegistration) => {
     dispatch(addUser({ email: data?.user.email, name: data.user.name }));
     dispatch(addAccessToken({ accessToken: data.accessToken }));
@@ -45,7 +49,11 @@ export function InputLogin() {
         name={"password"}
         extraClass="mb-2"
       />
-      <Button htmlType="button" type="primary" size="medium" onClick={async () => {
+      <Button
+        htmlType="button"
+        type="primary"
+        size="medium"
+        onClick={async () => {
           const response = await trigger({
             email: valueEmail,
             password: valuePassword,
@@ -54,7 +62,8 @@ export function InputLogin() {
             updateUserStorage(response.data);
             navigate("/");
           }
-        }}>
+        }}
+      >
         Войти
       </Button>
       <div>

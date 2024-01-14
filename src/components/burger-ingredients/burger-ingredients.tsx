@@ -40,11 +40,9 @@ export function BurgerIngredients() {
             type={type}
             selectIngredient={selectIngredient}
             key={type}
-            openModal={openModal}
           />
         ))}
       </div>
-      <IngredientDetailsModal dialogRef={dialogRef} />
     </div>
   );
 }

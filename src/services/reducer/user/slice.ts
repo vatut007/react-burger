@@ -22,10 +22,10 @@ export const userSlice = createSlice({
     addRefreshToken(state, action: PayloadAction<{ refreshToken: string }>) {
       state.refreshToken = action.payload.refreshToken;
     },
-    clearUser(state){
-      state.accessToken = null,
-      state.refreshToken = null,
-      state.user=null
-    }
+    clearUser(state) {
+      (state.accessToken = null),
+        (state.refreshToken = null),
+        (state.user = null);
+    },
   },
 });

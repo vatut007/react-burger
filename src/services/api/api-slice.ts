@@ -16,7 +16,7 @@ import {
 } from "../../types/updateToken";
 import { ResponseGetUser, User } from "../../types/user";
 import { RequestLogin, ResponseLogin } from "../../types/login";
-import { RequestUpdateUser,  ResponseUpdateUser } from "../../types/update-user";
+import { RequestUpdateUser, ResponseUpdateUser } from "../../types/update-user";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -90,28 +90,28 @@ export const apiSlice = createApi({
         return baseQueryReturnValue.user;
       },
     }),
-    login: builder.mutation<ResponseLogin,RequestLogin>({
-      query: ({email, password}) => ({
+    login: builder.mutation<ResponseLogin, RequestLogin>({
+      query: ({ email, password }) => ({
         url: "auth/login",
         method: "POST",
         body: {
           email: email,
           password: password,
-        }
+        },
       }),
     }),
-    updateProfile: builder.mutation<ResponseUpdateUser,RequestUpdateUser>({
-      query:(user: RequestUpdateUser) => ({
-        url:"auth/user",
+    updateProfile: builder.mutation<ResponseUpdateUser, RequestUpdateUser>({
+      query: (user: RequestUpdateUser) => ({
+        url: "auth/user",
         headers: { authorization: user.token },
         method: "PATCH",
-        body:{
+        body: {
           email: user.email,
           name: user.name,
-          password: user.password 
-        }
-      })
-    })
+          password: user.password,
+        },
+      }),
+    }),
   }),
 });
 
@@ -123,5 +123,5 @@ export const {
   useUpdateAccessTokenMutation,
   useGetUserQuery,
   useLoginMutation,
-  useUpdateProfileMutation
+  useUpdateProfileMutation,
 } = apiSlice;
