@@ -13,6 +13,7 @@ import { ProfilePage } from "../../pages/profile/profile";
 import { IngredientPage } from "../../pages/ingredient/ingredient-page";
 import { IngredientDetailsModal } from "../ingredient-details-modal/ingredient-details-modal";
 import { useRef } from "react";
+import { ProtectedRoute } from "../protected-route/protected-route";
 
 export function AppRoutes() {
   const location = useLocation();
