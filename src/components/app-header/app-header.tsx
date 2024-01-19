@@ -5,8 +5,12 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectSelectedUser } from "../../services/reducer/user/selector";
 
 export function AppHeader() {
+  const user = useSelector(selectSelectedUser);
   return (
     <header className={styles.header}>
       <nav>
@@ -21,12 +25,16 @@ export function AppHeader() {
         </span>
         Лента заказов
       </nav>
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
       <nav>
-        <span className={styles.icon}>
-          <ProfileIcon type="primary" />
-        </span>{" "}
-        Личный кабинет
+        <Link to={user ? "/profile" : "/login"}>
+          <span className={styles.icon}>
+            <ProfileIcon type="primary" />
+          </span>{" "}
+          Личный кабинет
+        </Link>
       </nav>
     </header>
   );

@@ -11,7 +11,6 @@ import {
 
 interface CardIngredientProps {
   ingredient: Ingredient;
-  openModal: () => void;
   price: number;
   name: string;
   image: string;
@@ -25,7 +24,6 @@ export function CardIngredient({ ingredient, ...props }: CardIngredientProps) {
     count = 2;
   }
   const handleClick = () => {
-    props.openModal();
     dispatch(selectIngredient({ ingredient }));
   };
   const [, dragRef] = useDrag({

@@ -17,6 +17,8 @@ import { useDrop } from "react-dnd";
 import { Ingredient } from "../../types/ingredient";
 import clsx from "clsx";
 import { ConstructorElements } from "../constructor-element/constructor-elements";
+import { selectSelectedUser } from "../../services/reducer/user/selector";
+import { useNavigate } from "react-router-dom";
 
 export function BurgerConstructor() {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -33,6 +35,8 @@ export function BurgerConstructor() {
       isHover: monitor.isOver(),
     }),
   });
+  const user = useSelector(selectSelectedUser);
+  const navigate = useNavigate();
   if (selectedBun == null) {
     return (
       <div ref={dropTarget}>
@@ -91,6 +95,9 @@ export function BurgerConstructor() {
           size="small"
           extraClass="ml-2"
           onClick={() => {
+            if (user == null) {
+              navigate("/login");
+            }
             dialogRef.current?.showModal();
             triger([selectedBun, ...selectedIngredients, selectedBun]);
           }}

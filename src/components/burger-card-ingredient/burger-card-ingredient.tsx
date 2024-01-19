@@ -4,13 +4,13 @@ import { CardIngredient } from "../card-ingredient/card-ingredient";
 import { type MutableRefObject } from "react";
 import { type IngredientType } from "../../types/ingredient";
 import { useGetAllIngredientQuery } from "../../services/api/api-slice";
+import { Link, useLocation } from "react-router-dom";
 
 interface BurgerCardIngredientProps {
   type: IngredientType;
   selectIngredient: MutableRefObject<
     Partial<Record<IngredientType, HTMLDivElement | null>>
   >;
-  openModal(): void;
 }
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
@@ -18,6 +18,7 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
   const filteredIngredients = allIngredients?.filter(
     (ingredient) => ingredient.type === props.type,
   );
+  const location = useLocation();
   return (
     <>
       <div
@@ -32,14 +33,19 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
       </div>
       <div className={styles.bun}>
         {filteredIngredients?.map((ingredient) => (
-          <CardIngredient
+          <Link
+            to={`/ingredient/${ingredient._id}`}
+            state={{ background: location }}
             key={ingredient._id}
-            ingredient={ingredient}
-            name={ingredient.name}
-            image={ingredient.image}
-            price={ingredient.price}
-            openModal={props.openModal}
-          />
+          >
+            <CardIngredient
+              key={ingredient._id}
+              ingredient={ingredient}
+              name={ingredient.name}
+              image={ingredient.image}
+              price={ingredient.price}
+            />
+          </Link>
         ))}
       </div>
     </>

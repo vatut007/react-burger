@@ -1,31 +1,68 @@
-import styles from "./app.module.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addAccessToken,
+  addRefreshToken,
+  addUser,
+} from "../../services/reducer/user/actions";
+import { selectSelectedAccessToken } from "../../services/reducer/user/selector";
+import {
+  useGetUserQuery,
+  useUpdateAccessTokenMutation,
+} from "../../services/api/api-slice";
+import { AppRoutes } from "../routes/routes";
 import { AppHeader } from "../app-header/app-header";
-import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
-import { BurgerConstructor } from "../burger-constructor/burger-constructor";
-import { Loading } from "../loading/loadng";
-import { Error } from "../error/error";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { useGetAllIngredientQuery } from "../../services/api/api-slice";
 
 function App() {
-  const { data, error, isLoading } = useGetAllIngredientQuery(undefined);
+  const dispath = useDispatch();
+  const [trigger, { isLoading: tokenLoading }] = useUpdateAccessTokenMutation();
+  const accessToken = useSelector(selectSelectedAccessToken);
+  const {
+    data,
+    error,
+    isLoading: userLoading,
+  } = useGetUserQuery(accessToken ?? "", {
+    skip: !accessToken,
+  });
+  const isLoading = tokenLoading || userLoading;
+  useEffect(() => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (refreshToken) {
+      if (accessToken == null) {
+        const updateToken = async () => {
+          const response = await trigger({ refreshToken });
+          if ("data" in response && response.data.success) {
+            const { accessToken, refreshToken } = response.data;
+            localStorage.setItem("refreshToken", refreshToken);
+            dispath(addAccessToken({ accessToken }));
+            dispath(addRefreshToken({ refreshToken }));
+          }
+        };
+        updateToken();
+      }
+    }
+  }, []);
+  useEffect(() => {
+    if (data) {
+      dispath(addUser(data));
+    }
+  }, [data]);
+
   if (isLoading) {
-    return <Loading />;
+    return <div>Пожалуйста подождите</div>;
   }
-  if (error || !data) {
-    return <Error error={String(error)} />;
-  }
+
   return (
-    <div className={styles.App}>
+    <Router>
       <AppHeader />
-      <DndProvider backend={HTML5Backend}>
-        <main className={styles.main}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </main>
-      </DndProvider>
-    </div>
+      <AppRoutes />
+    </Router>
   );
 }
 export default App;
