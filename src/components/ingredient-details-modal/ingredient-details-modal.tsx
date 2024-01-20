@@ -22,13 +22,13 @@ export function IngredientDetailsModal(props: IngredientDetailsProps) {
         dispath(selectIngredient({ ingredient }));
       }
     }
+    props.dialogRef.current?.showModal();
   }, [data]);
   return (
     <Modal
       className={styles.modalContent}
       title={"Детали ингредиента"}
       dialogRef={props.dialogRef}
-      isIngredientDetail={true}
     >
       <IngredientDetail />
     </Modal>

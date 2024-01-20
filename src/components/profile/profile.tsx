@@ -29,11 +29,6 @@ export function Profile() {
   };
   const [trigger, { data, error, isLoading }] = useUpdateProfileMutation();
   useEffect(() => {
-    if (user == null) {
-      navigate("/");
-    }
-  }, []);
-  useEffect(() => {
     trigger({ email, name, password, token: accessToken });
   }, [name, email, password]);
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {

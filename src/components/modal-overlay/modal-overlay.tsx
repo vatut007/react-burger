@@ -5,16 +5,10 @@ interface ModalOverlayProps {
   dialogRef: RefObject<HTMLDialogElement>;
   children: ReactNode;
   handleCloseClick(): void;
-  isIngredientDetail?: boolean | null;
+
 }
 export function ModalOverlay(props: ModalOverlayProps) {
-  return props.isIngredientDetail ? (
-    <div className={styles.backdrop} onClick={props.handleCloseClick}>
-      <dialog open className={styles.modal} ref={props.dialogRef}>
-        {props.children}
-      </dialog>
-    </div>
-  ) : (
+  return (
     <dialog
       className={styles.modal}
       ref={props.dialogRef}

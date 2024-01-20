@@ -1,7 +1,15 @@
-import { useSelector } from "react-redux";
-import { type ReactNode } from "react";
-import { selectSelectedUser } from "../../services/reducer/user/selector";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, type ReactNode } from "react";
+import {
+  selectSelectedAccessToken,
+  selectSelectedUser,
+} from "../../services/reducer/user/selector";
 import { Navigate, useLocation } from "react-router-dom";
+import { useUpdateAccessTokenMutation } from "../../services/api/api-slice";
+import {
+  addAccessToken,
+  addRefreshToken,
+} from "../../services/reducer/user/actions";
 
 interface ModalProps {
   children: ReactNode;
@@ -17,13 +25,11 @@ export function ProtectedRoute({ children, anonymous = false }: ModalProps) {
     // ...то отправляем его на предыдущую страницу
     return <Navigate to={from} />;
   }
-
   // Если требуется авторизация, а пользователь не авторизован...
   if (!anonymous && !user) {
     // ...то отправляем его на страницу логин
     return <Navigate to="/login" state={{ from: location }} />;
   }
-
   // Если все ок, то рендерим внутреннее содержимое
   return children;
 }
