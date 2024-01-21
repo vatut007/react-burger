@@ -5,7 +5,6 @@ interface ModalOverlayProps {
   dialogRef: RefObject<HTMLDialogElement>;
   children: ReactNode;
   handleCloseClick(): void;
-
 }
 export function ModalOverlay(props: ModalOverlayProps) {
   return (
