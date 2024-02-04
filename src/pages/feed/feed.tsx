@@ -3,8 +3,9 @@ import styles from '../feed/feed.module.css'
 
 export function Feed (){
     return (
-        // <main className={styles.main}>
+        <main className={styles.main}>
         <OrderTape/>
-        // </main>
+        <OrderTape/>
+        </main>
     )
 }
