@@ -21,6 +21,11 @@ export type IngredientConstructor = Ingredient & {
 
 export type IngredientList = Ingredient[];
 
+export type RequestIngredient = {
+  ingredients: IngredientList;
+  token: string;
+};
+
 export type IngredientConstructorList = IngredientConstructor[];
 
 export type IngredientListResponse = { success: boolean; data: IngredientList };

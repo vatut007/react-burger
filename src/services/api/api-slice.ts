@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { NORMA_API } from "../../constants";
 import {
   IngredientList,
+  RequestIngredient,
   type IngredientListResponse,
 } from "../../types/ingredient";
 import { ApiResponseOrder, ResponseOrder } from "../../types/order";
@@ -17,6 +18,7 @@ import {
 import { ResponseGetUser, User } from "../../types/user";
 import { RequestLogin, ResponseLogin } from "../../types/login";
 import { RequestUpdateUser, ResponseUpdateUser } from "../../types/update-user";
+import { WsOrders } from "../../types/ws-order";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -28,12 +30,13 @@ export const apiSlice = createApi({
         return baseQueryReturnValue.data;
       },
     }),
-    orderDetail: builder.mutation<ResponseOrder, IngredientList>({
-      query: (ingredientList) => ({
+    orderDetail: builder.mutation<ResponseOrder, RequestIngredient>({
+      query: ({ ingredients, token }) => ({
         url: "orders",
+        headers: { authorization: token },
         method: "POST",
         body: {
-          ingredients: ingredientList.map((ingredient) => ingredient._id),
+          ingredients: ingredients.map((ingredient) => ingredient._id),
         },
       }),
       transformResponse(baseQueryReturnValue: ApiResponseOrder) {
@@ -112,6 +115,39 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    getOrders: builder.query<WsOrders, undefined>({
+      query: () => `orders/all`,
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+      ) {
+        // create a websocket connection when the cache subscription starts
+        const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
+        try {
+          // wait for the initial query to resolve before proceeding
+          await cacheDataLoaded;
+
+          // when data is received from the socket connection to the server,
+          // if it is a message and for the appropriate channel,
+          // update our query result with the received message
+          const listener = (event: MessageEvent) => {
+            const data: WsOrders = JSON.parse(event.data);
+            updateCachedData((draft) => {
+              return data;
+            });
+          };
+
+          ws.addEventListener("message", listener);
+        } catch {
+          // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
+          // in which case `cacheDataLoaded` will throw
+        }
+        // cacheEntryRemoved will resolve when the cache subscription is no longer active
+        await cacheEntryRemoved;
+        // perform cleanup steps once the `cacheEntryRemoved` promise resolves
+        ws.close();
+      },
+    }),
   }),
 });
 
@@ -124,4 +160,5 @@ export const {
   useGetUserQuery,
   useLoginMutation,
   useUpdateProfileMutation,
+  useGetOrdersQuery,
 } = apiSlice;

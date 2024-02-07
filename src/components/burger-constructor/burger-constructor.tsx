@@ -17,7 +17,10 @@ import { useDrop } from "react-dnd";
 import { Ingredient } from "../../types/ingredient";
 import clsx from "clsx";
 import { ConstructorElements } from "../constructor-element/constructor-elements";
-import { selectSelectedUser } from "../../services/reducer/user/selector";
+import {
+  selectSelectedAccessToken,
+  selectSelectedUser,
+} from "../../services/reducer/user/selector";
 import { useNavigate } from "react-router-dom";
 
 export function BurgerConstructor() {
@@ -36,6 +39,7 @@ export function BurgerConstructor() {
     }),
   });
   const user = useSelector(selectSelectedUser);
+  const accessToken = useSelector(selectSelectedAccessToken);
   const navigate = useNavigate();
   if (selectedBun == null) {
     return (
@@ -99,7 +103,12 @@ export function BurgerConstructor() {
               navigate("/login");
             }
             dialogRef.current?.showModal();
-            triger([selectedBun, ...selectedIngredients, selectedBun]);
+            if (accessToken) {
+              triger({
+                ingredients: [selectedBun, ...selectedIngredients, selectedBun],
+                token: accessToken,
+              });
+            }
           }}
         >
           Оформить заказ
