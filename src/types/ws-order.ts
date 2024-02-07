@@ -13,7 +13,9 @@ export type WsOrder = {
   ingredients: Ingredient["_id"][];
   _id: string;
   status: string;
-  number: number;
+  number: string;
+  name: string;
+  date: string;
   createdAt: string;
   updatedAt: string;
 };

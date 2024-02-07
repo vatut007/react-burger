@@ -3,7 +3,10 @@ import { ingredientNames } from "../burger-type-tab/burger-type-tab";
 import { CardIngredient } from "../card-ingredient/card-ingredient";
 import { type MutableRefObject } from "react";
 import { type IngredientType } from "../../types/ingredient";
-import { useGetAllIngredientQuery } from "../../services/api/api-slice";
+import {
+  ingredientSelectors,
+  useGetAllIngredientQuery,
+} from "../../services/api/api-slice";
 import { Link, useLocation } from "react-router-dom";
 
 interface BurgerCardIngredientProps {
@@ -14,8 +17,11 @@ interface BurgerCardIngredientProps {
 }
 
 export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
-  const { data: allIngredients } = useGetAllIngredientQuery(undefined);
-  const filteredIngredients = allIngredients?.filter(
+  const { data: ingredientEntities } = useGetAllIngredientQuery(undefined);
+  const allIngredients = ingredientEntities
+    ? ingredientSelectors.selectAll(ingredientEntities)
+    : [];
+  const filteredIngredients = allIngredients.filter(
     (ingredient) => ingredient.type === props.type,
   );
   const location = useLocation();

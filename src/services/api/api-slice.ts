@@ -4,6 +4,7 @@ import {
   IngredientList,
   RequestIngredient,
   type IngredientListResponse,
+  Ingredient,
 } from "../../types/ingredient";
 import { ApiResponseOrder, ResponseOrder } from "../../types/order";
 import { RequestPassword, ResponsePasswordReset } from "../../types/password";
@@ -19,15 +20,22 @@ import { ResponseGetUser, User } from "../../types/user";
 import { RequestLogin, ResponseLogin } from "../../types/login";
 import { RequestUpdateUser, ResponseUpdateUser } from "../../types/update-user";
 import { WsOrders } from "../../types/ws-order";
+import { createEntityAdapter } from "@reduxjs/toolkit";
+
+const ingredientAdapter = createEntityAdapter({
+  selectId: (ingredient: Ingredient) => ingredient._id,
+});
+const ingredientInitialState = ingredientAdapter.getInitialState();
+export const ingredientSelectors = ingredientAdapter.getSelectors();
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: NORMA_API }),
   endpoints: (builder) => ({
-    getAllIngredient: builder.query<IngredientList, undefined>({
+    getAllIngredient: builder.query<typeof ingredientInitialState, undefined>({
       query: () => `/ingredients`,
-      transformResponse(baseQueryReturnValue: IngredientListResponse) {
-        return baseQueryReturnValue.data;
+      transformResponse({ data }: IngredientListResponse) {
+        return ingredientAdapter.setAll(ingredientInitialState, data);
       },
     }),
     orderDetail: builder.mutation<ResponseOrder, RequestIngredient>({

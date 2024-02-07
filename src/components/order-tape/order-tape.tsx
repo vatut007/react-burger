@@ -1,35 +1,50 @@
+import {
+  ingredientSelectors,
+  useGetAllIngredientQuery,
+} from "../../services/api/api-slice";
 import styles from "../order-tape/order-tape.module.css";
 
-export function OrderTape() {
+interface OrderTapeProps {
+  number: string;
+  date: string;
+  name: string;
+  ingredientIds: string[];
+}
+
+export function OrderTape({
+  number,
+  date,
+  name,
+  ingredientIds,
+}: OrderTapeProps) {
+  const { data: ingredientEntities } = useGetAllIngredientQuery(undefined);
+  const ingredients = ingredientEntities
+    ? ingredientIds
+        .map((id) => ingredientSelectors.selectById(ingredientEntities, id))
+        .filter((ingredient) => ingredient)
+    : [];
   return (
     <div className={styles.windowOrder}>
       <div className={styles.title}>
-        <p className="text text_type_main-default">#034535</p>
+        <p className="text text_type_main-default">{number}</p>
         <p className="text text_type_main-default text_color_inactive">
           {" "}
-          Сегодня, 16:20 i-GMT+3
+          {date}
         </p>
       </div>
       <div>
-        <p className="text text_type_main-medium">
-          Death Star Startship Main бургер
-        </p>
+        <p className="text text_type_main-medium">{name}</p>
       </div>
       <div className={styles.pictures}>
-        <div className={styles.picture}>
-          <img
-            src="https://code.s3.yandex.net/react/code/bun-02.png"
-            alt="Картинка"
-            className={styles.img}
-          ></img>
-        </div>
-        <div className={styles.picture}>
-          <img
-            src="https://code.s3.yandex.net/react/code/bun-02.png"
-            alt="Картинка"
-            className={styles.img}
-          ></img>
-        </div>
+        {ingredients.map((ingredient, index) => (
+          <div className={styles.picture} key={index}>
+            <img
+              src={ingredient.image}
+              alt={ingredient.name}
+              className={styles.img}
+            ></img>
+          </div>
+        ))}
       </div>
     </div>
   );

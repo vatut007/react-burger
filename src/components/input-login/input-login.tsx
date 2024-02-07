@@ -41,7 +41,6 @@ export function InputLogin() {
           email: valueEmail,
           password: valuePassword,
         });
-        console.log(response);
         if ("data" in response && response.data.success) {
           updateUserStorage(response.data);
           navigate("/");
