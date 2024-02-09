@@ -8,7 +8,7 @@ export function OrdersTapes() {
     <OrderTape
       key={order._id}
       number={order.number}
-      date={order.date}
+      date={order.createdAt}
       name={order.name}
       ingredientIds={order.ingredients}
     />

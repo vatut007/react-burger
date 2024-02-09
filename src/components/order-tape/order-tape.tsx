@@ -28,7 +28,6 @@ export function OrderTape({
       <div className={styles.title}>
         <p className="text text_type_main-default">{number}</p>
         <p className="text text_type_main-default text_color_inactive">
-          {" "}
           {date}
         </p>
       </div>

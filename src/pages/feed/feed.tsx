@@ -6,8 +6,12 @@ import styles from "../feed/feed.module.css";
 export function Feed() {
   return (
     <main className={styles.main}>
-      <OrdersTapes />
-      <OrderTotal />
+      <div className={styles.orders}>
+        <OrdersTapes />
+      </div>
+      <div>
+        <OrderTotal />
+      </div>
     </main>
   );
 }
