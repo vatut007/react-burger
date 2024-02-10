@@ -31,11 +31,13 @@ export function OrderTotal() {
             ))}
           </div>
         </div>
-        <p className="text text_type_main-small">В работе:</p>
-        <div className={styles.ordersDone}>
-          {ordersPending?.map((order) => (
-            <p className="text text_type_main-small">{order.number}</p>
-          ))}
+        <div>
+          <p className="text text_type_main-small">В работе:</p>
+          <div className={styles.ordersDone}>
+            {ordersPending?.map((order) => (
+              <p className="text text_type_main-small">{order.number}</p>
+            ))}
+          </div>
         </div>
       </div>
       <div className={styles.totalAll}>

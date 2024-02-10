@@ -1,3 +1,4 @@
+import {DateTime, Duration, Info, Interval, Settings} from 'luxon';
 import {
   ingredientSelectors,
   useGetAllIngredientQuery,
@@ -23,12 +24,13 @@ export function OrderTape({
         .map((id) => ingredientSelectors.selectById(ingredientEntities, id))
         .filter((ingredient) => ingredient)
     : [];
+    const dt = DateTime.fromISO(date, { locale: "ru" })
   return (
     <div className={styles.windowOrder}>
       <div className={styles.title}>
         <p className="text text_type_main-default">{number}</p>
         <p className="text text_type_main-default text_color_inactive">
-          {date}
+          {DateTime.now().day==dt.day?dt.toFormat("'Сегодня в' HH:MM ZZZZ"):dt.toLocaleString(DateTime.DATETIME_FULL)}
         </p>
       </div>
       <div>
