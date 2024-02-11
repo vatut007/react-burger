@@ -38,3 +38,29 @@
   justify-content: space-between;
   align-items: center;
 }
+.hanter {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  backdrop-filter: blur(1.2px);
+  border: 1px;
+  border-style: solid;
+  border-color: blueviolet;
+  border-radius: 100px;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
+.endPicture {
+  display: flex;
+  border: 1px;
+  border-color: blueviolet;
+  border-style: solid;
+  border-radius: 100px;
+  background-color: black;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  margin-left: -20px;
+}

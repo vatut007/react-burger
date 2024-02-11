@@ -59,8 +59,10 @@ export function OrderTape({
               </div>
             ))}
           {ingredients.length > INGREDIENTS_LENGTH_LIMIT && (
-            <div className={styles.picture}>
-              +{ingredients.length - INGREDIENTS_LENGTH_LIMIT}
+            <div className={styles.endPicture}>
+              <div className={styles.hanter}>
+                +{ingredients.length - INGREDIENTS_LENGTH_LIMIT}
+              </div>
               <img
                 src={ingredients[INGREDIENTS_LENGTH_LIMIT].image}
                 alt={ingredients[INGREDIENTS_LENGTH_LIMIT].name}
