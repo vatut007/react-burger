@@ -16,6 +16,7 @@ import { IngredientDetailsModal } from "../ingredient-details-modal/ingredient-d
 import { useRef } from "react";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { Feed } from "../../pages/feed/feed";
+import { OrderPage } from "../../pages/order-page/order-page";
 
 export function AppRoutes() {
   const location = useLocation();
@@ -46,6 +47,7 @@ export function AppRoutes() {
         />
         <Route path="/ingredient/:ingredientId" element={<IngredientPage />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/feed/:number" element={<OrderPage />} />
       </Routes>
       {background && (
         <Routes>

@@ -6,7 +6,12 @@ import {
   type IngredientListResponse,
   Ingredient,
 } from "../../types/ingredient";
-import { ApiResponseOrder, ResponseOrder } from "../../types/order";
+import {
+  ApiResponseOrder,
+  GetOrder,
+  GetOrderResponse,
+  ResponseOrder,
+} from "../../types/order";
 import { RequestPassword, ResponsePasswordReset } from "../../types/password";
 import {
   RequestRegistration,
@@ -129,15 +134,9 @@ export const apiSlice = createApi({
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
       ) {
-        // create a websocket connection when the cache subscription starts
         const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
         try {
-          // wait for the initial query to resolve before proceeding
           await cacheDataLoaded;
-
-          // when data is received from the socket connection to the server,
-          // if it is a message and for the appropriate channel,
-          // update our query result with the received message
           const listener = (event: MessageEvent) => {
             const data: WsOrders = JSON.parse(event.data);
             updateCachedData((draft) => {
@@ -146,14 +145,17 @@ export const apiSlice = createApi({
           };
 
           ws.addEventListener("message", listener);
-        } catch {
-          // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,
-          // in which case `cacheDataLoaded` will throw
-        }
-        // cacheEntryRemoved will resolve when the cache subscription is no longer active
+        } catch {}
         await cacheEntryRemoved;
-        // perform cleanup steps once the `cacheEntryRemoved` promise resolves
         ws.close();
+      },
+    }),
+    getOrder: builder.query<GetOrder, string>({
+      query: (orderNumber: string) => ({
+        url: `orders/${orderNumber}`,
+      }),
+      transformResponse(baseQueryReturnValue: GetOrderResponse) {
+        return baseQueryReturnValue.orders[0];
       },
     }),
   }),
@@ -169,4 +171,5 @@ export const {
   useLoginMutation,
   useUpdateProfileMutation,
   useGetOrdersQuery,
+  useGetOrderQuery,
 } = apiSlice;
