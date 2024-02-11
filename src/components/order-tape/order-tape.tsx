@@ -61,7 +61,9 @@ export function OrderTape({
           {ingredients.length > INGREDIENTS_LENGTH_LIMIT && (
             <div className={styles.endPicture}>
               <div className={styles.hanter}>
-                +{ingredients.length - INGREDIENTS_LENGTH_LIMIT}
+                <p className="text text_type_digits-default">
+                  +{ingredients.length - INGREDIENTS_LENGTH_LIMIT}
+                </p>
               </div>
               <img
                 src={ingredients[INGREDIENTS_LENGTH_LIMIT].image}
