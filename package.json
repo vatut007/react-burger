@@ -40,6 +40,7 @@
     "core-js": "^3.35.0",
     "eslint": "^8.56.0",
     "luxon": "^3.4.4",
+    "object.groupby": "^1.0.2",
     "prettier": "^3.1.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -53,5 +54,8 @@
     "typescript": "^4.9.5",
     "vite": "^5.0.11",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/object.groupby": "^1.0.3"
   }
 }

@@ -47,7 +47,7 @@ export function AppRoutes() {
         />
         <Route path="/ingredient/:ingredientId" element={<IngredientPage />} />
         <Route path="/feed" element={<Feed />} />
-        <Route path="/feed/:number" element={<OrderPage />} />
+        <Route path="/feed/:orderNumber" element={<OrderPage />} />
       </Routes>
       {background && (
         <Routes>
