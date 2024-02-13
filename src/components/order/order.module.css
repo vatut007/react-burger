@@ -13,6 +13,9 @@
 .red {
   color: red;
 }
+.white{
+  color: white
+}
 .picture {
   display: flex;
   border: 1px;
@@ -33,10 +36,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 500px;
+  max-height: 500px;
   width: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .orderName {
   display: flex;
@@ -57,4 +60,14 @@
 }
 .textCount {
   font-size: medium;
+}
+.dateSumm{
+  display: flex;
+  padding-top: 50px;
+  justify-content: center;
+  gap: 50px
+}
+.summ {
+  display: flex;
+  justify-content: right;
 }

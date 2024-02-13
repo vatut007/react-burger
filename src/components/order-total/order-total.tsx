@@ -25,6 +25,7 @@ export function OrderTotal() {
                   "text text_type_main-small",
                   styles.orderNumber,
                 )}
+                key={order._id}
               >
                 {order.number}
               </p>

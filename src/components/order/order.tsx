@@ -9,10 +9,12 @@ import clsx from "clsx";
 import groupBy from "object.groupby";
 import { useMemo } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { DateTime } from "luxon";
 
 export function Order() {
   const { orderNumber } = useParams();
   const { data: order, isLoading, error } = useGetOrderQuery(orderNumber!);
+ 
   const ingredientIds = order?.ingredients ? order.ingredients : [];
   const { data: ingredientEntities } = useGetAllIngredientQuery(undefined);
   const groupIngredients = useMemo(() => {
@@ -27,11 +29,17 @@ export function Order() {
       count: ingredients.length,
     }));
     return groupIngredients;
-  }, [ingredientEntities]);
+  }, [ingredientEntities, ingredientIds]);
+  console.log(groupIngredients, ingredientEntities)
+  const dt = DateTime.fromISO(order?order.createdAt:'', { locale: "ru" });
+  const summIngredients = groupIngredients.reduce(
+    (sum, current) => sum + current.ingredient.price,
+    0,
+  );
   return (
     <div className={styles.order}>
-      <p className="text text_type_main-medium">#{order?.number}</p>
-      <p className="text text_type_main-medium">{order?.name}</p>
+      <p className={clsx("text text_type_main-medium", styles.white)}>#{order?.number}</p>
+      <p className={clsx("text text_type_main-medium", styles.white)}>{order?.name}</p>
       <p
         className={clsx(
           "text text_type_main-small",
@@ -53,7 +61,7 @@ export function Order() {
               ></img>
             </div>
             <div className={styles.orderName}>
-              <p className="text text_type_main-small">{ingredient.name}</p>
+              <p className={clsx("text text_type_main-small", styles.white)}>{ingredient.name}</p>
             </div>
             <div className={styles.count}>
               <p
@@ -68,6 +76,17 @@ export function Order() {
             </div>
           </div>
         ))}
+      </div>
+      <div className={styles.dateSumm}>
+      <p className="text text_type_main-default text_color_inactive">
+          {DateTime.now().day == dt.day
+            ? dt.toFormat("'Сегодня в' HH:MM ZZZZ")
+            : dt.toLocaleString(DateTime.DATETIME_FULL)}
+        </p>
+        <div className={styles.summ}>
+          <p className="text text_type_main-default">{summIngredients}</p>
+          <CurrencyIcon type="primary" />
+        </div>
       </div>
     </div>
   );

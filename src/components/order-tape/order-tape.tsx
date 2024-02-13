@@ -5,6 +5,7 @@ import {
 } from "../../services/api/api-slice";
 import styles from "../order-tape/order-tape.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
 
 const INGREDIENTS_LENGTH_LIMIT = 5;
 

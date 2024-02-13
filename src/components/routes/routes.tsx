@@ -17,6 +17,7 @@ import { useRef } from "react";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { Feed } from "../../pages/feed/feed";
 import { OrderPage } from "../../pages/order-page/order-page";
+import { OrderModal } from "../order-modal/order-modal";
 
 export function AppRoutes() {
   const location = useLocation();
@@ -57,6 +58,14 @@ export function AppRoutes() {
               <IngredientDetailsModal
                 dialogRef={dialogRef}
               ></IngredientDetailsModal>
+            }
+          />
+          <Route
+            path="/feed/:orderNumber"
+            element={
+              <OrderModal
+                dialogRef={dialogRef}
+              ></OrderModal>
             }
           />
         </Routes>
