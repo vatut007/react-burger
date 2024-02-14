@@ -67,6 +67,16 @@ export function AppRoutes() {
             element={
               <OrderModal
                 dialogRef={dialogRef}
+                type='all'
+              ></OrderModal>
+            }
+          />
+          <Route
+            path="profile/orders/:orderNumber"
+            element={
+              <OrderModal
+                dialogRef={dialogRef}
+                type='user'
               ></OrderModal>
             }
           />

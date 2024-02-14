@@ -6,6 +6,7 @@ import styles from './order-modal.module.css'
 
 interface OrderModalProps {
     dialogRef: RefObject<HTMLDialogElement>;
+    type: 'user'|'all'
   }
 
 export function OrderModal(props: OrderModalProps){
@@ -18,6 +19,6 @@ export function OrderModal(props: OrderModalProps){
     return(<Modal
         className={styles.modalContent}
         dialogRef={props.dialogRef}
-        onClose={() => navigate("/feed")}
+        onClose={() => navigate(props.type=='all'?"/feed":'/profile/orders')}
     ><Order/></Modal>)
 }
