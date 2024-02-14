@@ -1,18 +1,19 @@
-.main {
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-  justify-content: center;
-  text-align: center;
-  height: 100vh;
-}
+.profileDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    overflow: hidden;
+    height: 100%;
+  }
 .orders {
   display: flex;
   flex-direction: column;
   gap: 20px;
   overflow-y: scroll;
-  overflow-x: hidden;
   position: relative;
+  height: 100vh;
   padding-right: 10px;
   &::-webkit-scrollbar {
     width: 10px;

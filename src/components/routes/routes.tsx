@@ -18,6 +18,7 @@ import { ProtectedRoute } from "../protected-route/protected-route";
 import { Feed } from "../../pages/feed/feed";
 import { OrderPage } from "../../pages/order-page/order-page";
 import { OrderModal } from "../order-modal/order-modal";
+import { ProfileFeedsPage } from "../../pages/profile/profile-feeds/profile-feeds";
 
 export function AppRoutes() {
   const location = useLocation();
@@ -49,6 +50,7 @@ export function AppRoutes() {
         <Route path="/ingredient/:ingredientId" element={<IngredientPage />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/feed/:orderNumber" element={<OrderPage />} />
+        <Route path="profile/orders" element={<ProfileFeedsPage/>}/>
       </Routes>
       {background && (
         <Routes>

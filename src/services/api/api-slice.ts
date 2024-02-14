@@ -158,6 +158,31 @@ export const apiSlice = createApi({
         return baseQueryReturnValue.orders[0];
       },
     }),
+    getOrdersUser: builder.query<WsOrders, string>({
+      query: (token) => ({
+        url:`orders/`,
+        headers: { authorization: token}
+      }),
+      async onCacheEntryAdded(
+        token,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+      ) {
+        const ws = new WebSocket(`wss://norma.nomoreparties.space/orders/all/?token=${token.replace('Bearer ', '')}`);
+        try {
+          await cacheDataLoaded;
+          const listener = (event: MessageEvent) => {
+            const data: WsOrders = JSON.parse(event.data);
+            updateCachedData((draft) => {
+              return data;
+            });
+          };
+
+          ws.addEventListener("message", listener);
+        } catch {}
+        await cacheEntryRemoved;
+        ws.close();
+      },
+    }),
   }),
 });
 
@@ -172,4 +197,5 @@ export const {
   useUpdateProfileMutation,
   useGetOrdersQuery,
   useGetOrderQuery,
+  useGetOrdersUserQuery
 } = apiSlice;

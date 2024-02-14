@@ -30,7 +30,6 @@ export function Order() {
     }));
     return groupIngredients;
   }, [ingredientEntities, ingredientIds]);
-  console.log(groupIngredients, ingredientEntities)
   const dt = DateTime.fromISO(order?order.createdAt:'', { locale: "ru" });
   const summIngredients = groupIngredients.reduce(
     (sum, current) => sum + current.ingredient.price,
@@ -84,7 +83,7 @@ export function Order() {
             : dt.toLocaleString(DateTime.DATETIME_FULL)}
         </p>
         <div className={styles.summ}>
-          <p className="text text_type_main-default">{summIngredients}</p>
+          <p className={clsx("text text_type_main-default", styles.white)}>{summIngredients}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>
