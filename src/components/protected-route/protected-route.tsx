@@ -25,8 +25,8 @@ export function ProtectedRoute({ children, anonymous = false }: ModalProps) {
     // ...то отправляем его на предыдущую страницу
     return <Navigate to={from} />;
   }
-  if (!anonymous && !user && location.pathname=='/register'){
-    return children
+  if (!anonymous && !user && location.pathname == "/register") {
+    return children;
   }
   // Если требуется авторизация, а пользователь не авторизован...
   if (!anonymous && !user) {

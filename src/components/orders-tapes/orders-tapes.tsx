@@ -8,17 +8,17 @@ export function OrdersTapes() {
   const location = useLocation();
   return orders?.map((order) => (
     <Link
-    to={`/feed/${order.number}`}
-    state={{ background: location }}
-    key={order.number}
-  >
-    <OrderTape
-      key={order._id}
-      number={order.number}
-      date={order.createdAt}
-      name={order.name}
-      ingredientIds={order.ingredients}
-    />
+      to={`/feed/${order.number}`}
+      state={{ background: location }}
+      key={order.number}
+    >
+      <OrderTape
+        key={order._id}
+        number={order.number}
+        date={order.createdAt}
+        name={order.name}
+        ingredientIds={order.ingredients}
+      />
     </Link>
   ));
 }

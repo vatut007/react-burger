@@ -160,14 +160,19 @@ export const apiSlice = createApi({
     }),
     getOrdersUser: builder.query<WsOrders, string>({
       query: (token) => ({
-        url:`orders/`,
-        headers: { authorization: token}
+        url: `orders/`,
+        headers: { authorization: token },
       }),
       async onCacheEntryAdded(
         token,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
       ) {
-        const ws = new WebSocket(`wss://norma.nomoreparties.space/orders/all/?token=${token.replace('Bearer ', '')}`);
+        const ws = new WebSocket(
+          `wss://norma.nomoreparties.space/orders/all/?token=${token.replace(
+            "Bearer ",
+            "",
+          )}`,
+        );
         try {
           await cacheDataLoaded;
           const listener = (event: MessageEvent) => {
@@ -197,5 +202,5 @@ export const {
   useUpdateProfileMutation,
   useGetOrdersQuery,
   useGetOrderQuery,
-  useGetOrdersUserQuery
+  useGetOrdersUserQuery,
 } = apiSlice;
