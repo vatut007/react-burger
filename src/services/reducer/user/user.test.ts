@@ -10,28 +10,24 @@ const getUser = (): User => ({
   name: "Test",
 });
 
-const getStateUserAdd = () => reducer(getInitialState(), addUser(getUser()))
+const getStateUserAdd = () => reducer(getInitialState(), addUser(getUser()));
 
 test("add user", () => {
   expect(reducer(getInitialState(), addUser(getUser()))).toMatchSnapshot();
 });
 
-test("add Access Token",
-  () => {
-    expect(
-      reducer(getInitialState(), addAccessToken({ accessToken: "bearer" })),
-    ).toMatchSnapshot();
-  });
+test("add Access Token", () => {
+  expect(
+    reducer(getInitialState(), addAccessToken({ accessToken: "bearer" })),
+  ).toMatchSnapshot();
+});
 
-test("add Refresh Token",
-  () => {
-    expect(
-      reducer(getInitialState(), addRefreshToken({ refreshToken: 'refresh'})),
-    ).toMatchSnapshot();
-  });
+test("add Refresh Token", () => {
+  expect(
+    reducer(getInitialState(), addRefreshToken({ refreshToken: "refresh" })),
+  ).toMatchSnapshot();
+});
 
-test("clear User", ()=>{
-    expect(
-        reducer(getStateUserAdd(), clearUser())
-    ).toMatchSnapshot()
-})
+test("clear User", () => {
+  expect(reducer(getStateUserAdd(), clearUser())).toMatchSnapshot();
+});
