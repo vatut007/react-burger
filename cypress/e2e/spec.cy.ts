@@ -11,10 +11,10 @@ it("Drag and drop ingeredient", () => {
     .then((success) => {assert.isTrue(success)})
 });
 
-it("create order", ()=>{
-  cy.get("p:contains(Флюоресцентная булка R2-D3)")
-  .drag("p:contains(Необходимо добавить ингредиенты и булки.)")
-  cy.get("button:contains(Оформить заказ)")
-  cy.wait(20)
-  cy.get('dialog').
-})
+// it("create order", ()=>{
+//   cy.get("p:contains(Флюоресцентная булка R2-D3)")
+//   .drag("p:contains(Необходимо добавить ингредиенты и булки.)")
+//   cy.get("button:contains(Оформить заказ)")
+//   cy.wait(20)
+//   cy.get('dialog').
+// })
