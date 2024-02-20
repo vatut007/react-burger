@@ -59,7 +59,7 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router basename="/react-burger">
       <AppHeader />
       <AppRoutes />
     </Router>
