@@ -2,9 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { NORMA_API } from "../../constants";
 import {
   IngredientList,
+  RequestIngredient,
   type IngredientListResponse,
+  Ingredient,
 } from "../../types/ingredient";
-import { ApiResponseOrder, ResponseOrder } from "../../types/order";
+import {
+  ApiResponseOrder,
+  GetOrder,
+  GetOrderResponse,
+  ResponseOrder,
+} from "../../types/order";
 import { RequestPassword, ResponsePasswordReset } from "../../types/password";
 import {
   RequestRegistration,
@@ -17,23 +24,32 @@ import {
 import { ResponseGetUser, User } from "../../types/user";
 import { RequestLogin, ResponseLogin } from "../../types/login";
 import { RequestUpdateUser, ResponseUpdateUser } from "../../types/update-user";
+import { WsOrders } from "../../types/ws-order";
+import { createEntityAdapter } from "@reduxjs/toolkit";
+
+const ingredientAdapter = createEntityAdapter({
+  selectId: (ingredient: Ingredient) => ingredient._id,
+});
+const ingredientInitialState = ingredientAdapter.getInitialState();
+export const ingredientSelectors = ingredientAdapter.getSelectors();
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: NORMA_API }),
   endpoints: (builder) => ({
-    getAllIngredient: builder.query<IngredientList, undefined>({
+    getAllIngredient: builder.query<typeof ingredientInitialState, undefined>({
       query: () => `/ingredients`,
-      transformResponse(baseQueryReturnValue: IngredientListResponse) {
-        return baseQueryReturnValue.data;
+      transformResponse({ data }: IngredientListResponse) {
+        return ingredientAdapter.setAll(ingredientInitialState, data);
       },
     }),
-    orderDetail: builder.mutation<ResponseOrder, IngredientList>({
-      query: (ingredientList) => ({
+    orderDetail: builder.mutation<ResponseOrder, RequestIngredient>({
+      query: ({ ingredients, token }) => ({
         url: "orders",
+        headers: { authorization: token },
         method: "POST",
         body: {
-          ingredients: ingredientList.map((ingredient) => ingredient._id),
+          ingredients: ingredients.map((ingredient) => ingredient._id),
         },
       }),
       transformResponse(baseQueryReturnValue: ApiResponseOrder) {
@@ -112,6 +128,61 @@ export const apiSlice = createApi({
         },
       }),
     }),
+    getOrders: builder.query<WsOrders, undefined>({
+      query: () => `orders/all`,
+      async onCacheEntryAdded(
+        arg,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+      ) {
+        const ws = new WebSocket("wss://norma.nomoreparties.space/orders/all");
+        try {
+          await cacheDataLoaded;
+          const listener = (event: MessageEvent) => {
+            const data: WsOrders = JSON.parse(event.data);
+            updateCachedData((draft) => {
+              return data;
+            });
+          };
+
+          ws.addEventListener("message", listener);
+        } catch {}
+        await cacheEntryRemoved;
+        ws.close();
+      },
+    }),
+    getOrder: builder.query<GetOrder, string>({
+      query: (orderNumber: string) => ({
+        url: `orders/${orderNumber}`,
+      }),
+      transformResponse(baseQueryReturnValue: GetOrderResponse) {
+        return baseQueryReturnValue.orders[0];
+      },
+    }),
+    getOrdersUser: builder.query<WsOrders, string>({
+      query: (token) => ({
+        url:`orders/`,
+        headers: { authorization: token}
+      }),
+      async onCacheEntryAdded(
+        token,
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+      ) {
+        const ws = new WebSocket(`wss://norma.nomoreparties.space/orders/all/?token=${token.replace('Bearer ', '')}`);
+        try {
+          await cacheDataLoaded;
+          const listener = (event: MessageEvent) => {
+            const data: WsOrders = JSON.parse(event.data);
+            updateCachedData((draft) => {
+              return data;
+            });
+          };
+
+          ws.addEventListener("message", listener);
+        } catch {}
+        await cacheEntryRemoved;
+        ws.close();
+      },
+    }),
   }),
 });
 
@@ -124,4 +195,7 @@ export const {
   useGetUserQuery,
   useLoginMutation,
   useUpdateProfileMutation,
+  useGetOrdersQuery,
+  useGetOrderQuery,
+  useGetOrdersUserQuery
 } = apiSlice;

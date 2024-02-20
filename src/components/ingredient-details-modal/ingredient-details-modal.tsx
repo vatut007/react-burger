@@ -3,7 +3,10 @@ import styles from "./ingredient-details-modal.module.css";
 import { IngredientDetail } from "../ingredient-detail/ingredient-detail";
 import { RefObject, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetAllIngredientQuery } from "../../services/api/api-slice";
+import {
+  ingredientSelectors,
+  useGetAllIngredientQuery,
+} from "../../services/api/api-slice";
 import { useDispatch } from "react-redux";
 import { selectIngredient } from "../../services/reducer/burger-detail/actions";
 
@@ -13,18 +16,25 @@ interface IngredientDetailsProps {
 
 export function IngredientDetailsModal(props: IngredientDetailsProps) {
   const { ingredientId } = useParams();
-  const { data, error, isLoading } = useGetAllIngredientQuery(undefined);
+  const {
+    data: ingredientEntities,
+    error,
+    isLoading,
+  } = useGetAllIngredientQuery(undefined);
   const navigate = useNavigate();
   const dispath = useDispatch();
   useEffect(() => {
-    if (data) {
-      const ingredient = data.find((item) => item._id == ingredientId);
-      if (ingredient) {
-        dispath(selectIngredient({ ingredient }));
-      }
-    }
+    if (!ingredientEntities) return;
+    if (!ingredientId) return;
+    const ingredient = ingredientSelectors.selectById(
+      ingredientEntities,
+      ingredientId,
+    );
+    if (!ingredient) return;
+    dispath(selectIngredient({ ingredient }));
+
     props.dialogRef.current?.showModal();
-  }, [data]);
+  }, [ingredientEntities]);
   return (
     <Modal
       className={styles.modalContent}
