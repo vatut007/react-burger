@@ -12,3 +12,8 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
+.link{
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--color-text);
+}

@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useGetOrdersQuery } from "../../services/api/api-slice";
 import { OrderTape } from "../order-tape/order-tape";
+import styles from './orders-tapes.module.css'
 
 export function OrdersTapes() {
   const { data, isLoading, error } = useGetOrdersQuery(undefined);
@@ -10,6 +11,7 @@ export function OrdersTapes() {
     <Link
       to={`/feed/${order.number}`}
       state={{ background: location }}
+      className={styles.link}
       key={order.number}
     >
       <OrderTape

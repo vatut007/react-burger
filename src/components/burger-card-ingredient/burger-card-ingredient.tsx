@@ -42,6 +42,7 @@ export function BurgerCardIngredient(props: BurgerCardIngredientProps) {
           <Link
             to={`/ingredient/${ingredient._id}`}
             state={{ background: location }}
+            className={styles.link}
             key={ingredient._id}
           >
             <CardIngredient
