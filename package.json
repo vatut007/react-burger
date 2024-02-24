@@ -7,7 +7,9 @@
     "dev": "vite",
     "eject": "react-scripts eject",
     "preview": "vite preview",
-    "test": "react-scripts test"
+    "test": "vitest",
+    "cypress": "cypress open cache clear",
+    "coverage": "vitest run --coverage"
   },
   "browserslist": {
     "production": [
@@ -30,9 +32,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
     "@vitejs/plugin-react": "^4.2.1",
@@ -52,11 +52,18 @@
     "redux": "^5.0.0",
     "redux-thunk": "^3.1.0",
     "typescript": "^4.9.5",
-    "vite": "^5.0.11",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.5",
+    "@testing-library/react": "^14.2.1",
     "@types/luxon": "^3.4.2",
-    "@types/object.groupby": "^1.0.3"
+    "@types/object.groupby": "^1.0.3",
+    "@vitest/coverage-v8": "^1.3.0",
+    "@vitest/ui": "^1.3.0",
+    "cypress": "^13.6.4",
+    "eslint-plugin-cypress": "^2.15.1",
+    "vite": "^5.1.3",
+    "vitest": "^1.3.0"
   }
 }

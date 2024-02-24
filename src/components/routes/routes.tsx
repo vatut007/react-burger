@@ -50,7 +50,7 @@ export function AppRoutes() {
         <Route path="/ingredient/:ingredientId" element={<IngredientPage />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/feed/:orderNumber" element={<OrderPage />} />
-        <Route path="profile/orders" element={<ProfileFeedsPage/>}/>
+        <Route path="profile/orders" element={<ProfileFeedsPage />} />
       </Routes>
       {background && (
         <Routes>
@@ -64,20 +64,12 @@ export function AppRoutes() {
           />
           <Route
             path="/feed/:orderNumber"
-            element={
-              <OrderModal
-                dialogRef={dialogRef}
-                type='all'
-              ></OrderModal>
-            }
+            element={<OrderModal dialogRef={dialogRef} type="all"></OrderModal>}
           />
           <Route
             path="profile/orders/:orderNumber"
             element={
-              <OrderModal
-                dialogRef={dialogRef}
-                type='user'
-              ></OrderModal>
+              <OrderModal dialogRef={dialogRef} type="user"></OrderModal>
             }
           />
         </Routes>

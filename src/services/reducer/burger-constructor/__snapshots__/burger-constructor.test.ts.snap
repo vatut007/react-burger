@@ -1,0 +1,140 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`add bun 1`] = `
+{
+  "bun": {
+    "__v": 0,
+    "_id": "643d69a5c3f7b9001cfa093c",
+    "calories": 420,
+    "carbohydrates": 53,
+    "fat": 24,
+    "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+    "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+    "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+    "name": "Краторная булка N-200i",
+    "price": 1255,
+    "proteins": 80,
+    "type": "bun",
+  },
+  "ingredientCount": {},
+  "ingredients": [],
+}
+`;
+
+exports[`add ingredient 1`] = `
+{
+  "bun": null,
+  "ingredientCount": {
+    "643d69a5c3f7b9001cfa0941": 1,
+  },
+  "ingredients": [
+    {
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa0941",
+      "calories": 4242,
+      "carbohydrates": 242,
+      "cart_item_id": "random-string-first",
+      "fat": 142,
+      "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+      "name": "Биокотлета из марсианской Магнолии",
+      "price": 424,
+      "proteins": 420,
+      "type": "main",
+    },
+  ],
+}
+`;
+
+exports[`add second ingredient 1`] = `
+{
+  "bun": null,
+  "ingredientCount": {
+    "643d69a5c3f7b9001cfa0941": 2,
+  },
+  "ingredients": [
+    {
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa0941",
+      "calories": 4242,
+      "carbohydrates": 242,
+      "cart_item_id": "random-string-first",
+      "fat": 142,
+      "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+      "name": "Биокотлета из марсианской Магнолии",
+      "price": 424,
+      "proteins": 420,
+      "type": "main",
+    },
+    {
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa0941",
+      "calories": 4242,
+      "carbohydrates": 242,
+      "cart_item_id": "random-string-second",
+      "fat": 142,
+      "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+      "name": "Биокотлета из марсианской Магнолии",
+      "price": 424,
+      "proteins": 420,
+      "type": "main",
+    },
+  ],
+}
+`;
+
+exports[`move ingredient 1`] = `
+{
+  "bun": null,
+  "ingredientCount": {
+    "643d69a5c3f7b9001cfa0941": 2,
+  },
+  "ingredients": [
+    {
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa0941",
+      "calories": 4242,
+      "carbohydrates": 242,
+      "cart_item_id": "random-string-second",
+      "fat": 142,
+      "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+      "name": "Биокотлета из марсианской Магнолии",
+      "price": 424,
+      "proteins": 420,
+      "type": "main",
+    },
+    {
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa0941",
+      "calories": 4242,
+      "carbohydrates": 242,
+      "cart_item_id": "random-string-first",
+      "fat": 142,
+      "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+      "name": "Биокотлета из марсианской Магнолии",
+      "price": 424,
+      "proteins": 420,
+      "type": "main",
+    },
+  ],
+}
+`;
+
+exports[`remove ingredient 1`] = `
+{
+  "bun": null,
+  "ingredientCount": {
+    "643d69a5c3f7b9001cfa0941": 0,
+  },
+  "ingredients": [],
+}
+`;

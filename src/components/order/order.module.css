@@ -13,8 +13,8 @@
 .red {
   color: red;
 }
-.white{
-  color: white
+.white {
+  color: white;
 }
 .picture {
   display: flex;
@@ -62,11 +62,11 @@
   font-size: medium;
   color: white;
 }
-.dateSumm{
+.dateSumm {
   display: flex;
   padding-top: 50px;
   justify-content: center;
-  gap: 50px
+  gap: 50px;
 }
 .summ {
   display: flex;

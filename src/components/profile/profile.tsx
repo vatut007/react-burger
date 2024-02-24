@@ -1,6 +1,6 @@
 import styles from "./profile.module.css";
-import { useDispatch} from "react-redux";
-import { Link, useNavigate} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { clearUser } from "../../services/reducer/user/actions";
 import { ProfileInput } from "../profile-input/profile-input";
 
@@ -15,11 +15,11 @@ export function Profile() {
   return (
     <div className={styles.profileDiv}>
       <div>
-        <Link to='/profile'>
-        <p className="text text_type_main-default">Профиль</p>
+        <Link to="/profile">
+          <p className="text text_type_main-default">Профиль</p>
         </Link>
-        <Link to='/profile/orders'>
-        <p className="text text_type_main-default">История заказов</p>
+        <Link to="/profile/orders">
+          <p className="text text_type_main-default">История заказов</p>
         </Link>
         <p className="text text_type_main-default" onClick={logout}>
           Выход

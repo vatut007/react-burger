@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`add Access Token 1`] = `
+{
+  "accessToken": "bearer",
+  "refreshToken": null,
+  "user": null,
+}
+`;
+
+exports[`add Refresh Token 1`] = `
+{
+  "accessToken": null,
+  "refreshToken": "refresh",
+  "user": null,
+}
+`;
+
+exports[`add user 1`] = `
+{
+  "accessToken": null,
+  "refreshToken": null,
+  "user": {
+    "email": "test@test.ru",
+    "name": "Test",
+  },
+}
+`;
+
+exports[`clear User 1`] = `
+{
+  "accessToken": null,
+  "refreshToken": null,
+  "user": null,
+}
+`;
